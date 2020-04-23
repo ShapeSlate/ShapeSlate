@@ -16,38 +16,27 @@ public class User {
     String name;
     @NotNull
     String password;
-    @JsonManagedReference
+
+    @JsonManagedReference(value = "user")
     @OneToMany(mappedBy = "user")
-    List<Session> sessions;
-    @JsonBackReference
-    @ManyToOne
-    Session session;
+    List<SlateRoomHasUser> slateRoomHasUsers;
 
     public User() {
     }
 
-    public User(int id, String name, String password, Session session, List<Session> sessions) {
+    public User(int id, @NotNull String name, @NotNull String password) {
         this.id = id;
         this.name = name;
         this.password = password;
-        this.session = session;
-        this.sessions = sessions;
+//        this.slateRoomHasUsers = slateRoomHasUsers;
     }
 
-    public Session getSession() {
-        return session;
+    public List<SlateRoomHasUser> getSlateRoomHasUsers() {
+        return slateRoomHasUsers;
     }
 
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
-    public List<Session> getSessions() {
-        return sessions;
-    }
-
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
+    public void setSlateRoomHasUsers(List<SlateRoomHasUser> slateRoomHasUsers) {
+        this.slateRoomHasUsers = slateRoomHasUsers;
     }
 
     public int getId() {

@@ -8,43 +8,32 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-public class Session {
+public class SlateRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @NotNull
     String sessionName;
-    @JsonBackReference
-    @ManyToOne
-    User user;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "session")
-    List<User> users;
 
-    public Session() {
+    @JsonManagedReference(value = "slateroom")
+    @OneToMany(mappedBy = "slateRoom")
+    List<SlateRoomHasUser> slateRoomHasUsers;
+
+    public SlateRoom() {
     }
 
-    public Session(int id, String sessionName, User user, List<User> users) {
+    public SlateRoom(int id, @NotNull String sessionName, List<SlateRoomHasUser> slateRoomHasUsers) {
         this.id = id;
         this.sessionName = sessionName;
-        this.user = user;
-        this.users = users;
+        this.slateRoomHasUsers = slateRoomHasUsers;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<SlateRoomHasUser> getSlateRoomHasUsers() {
+        return slateRoomHasUsers;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setSlateRoomHasUsers(List<SlateRoomHasUser> slateRoomHasUsers) {
+        this.slateRoomHasUsers = slateRoomHasUsers;
     }
 
     public int getId() {
