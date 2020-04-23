@@ -24,11 +24,11 @@ public class User {
     public User() {
     }
 
-    public User(int id, @NotNull String name, @NotNull String password) {
+    public User(int id, @NotNull String name, @NotNull String password, List<SlateRoomHasUser> slateRoomHasUsers) {
         this.id = id;
         this.name = name;
         this.password = password;
-//        this.slateRoomHasUsers = slateRoomHasUsers;
+        this.slateRoomHasUsers = slateRoomHasUsers;
     }
 
     public List<SlateRoomHasUser> getSlateRoomHasUsers() {
