@@ -12,6 +12,7 @@ export class AppComponent {
   myupdates: CanvasWhiteboardUpdate[] = [];
   tempupdate: CanvasWhiteboardUpdate[] = [];
 
+
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
     for (let i = 0; i < updates.length; i++) {
       this.tempupdate.push(updates[i]);

@@ -17,7 +17,19 @@ public class CanvasWhiteboardShapeOptions {
         this.lineCap = "round";
     }
 
-
+    public CanvasWhiteboardShapeOptions(boolean shouldFillShape,
+                                        String fillStyle,
+                                        String strokeStyle,
+                                        int lineWidth,
+                                        String lineJoin,
+                                        String lineCap) {
+        this.shouldFillShape = shouldFillShape;
+        this.fillStyle = fillStyle;
+        this.strokeStyle = strokeStyle;
+        this.lineWidth = lineWidth;
+        this.lineJoin = lineJoin;
+        this.lineCap = lineCap;
+    }
 
     public boolean isShouldFillShape() {
         return shouldFillShape;
