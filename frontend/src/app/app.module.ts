@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CanvasblobComponent } from './canvasblob/canvasblob.component';
 import { SessionComponent } from './session/session.component';
 import { UserComponent } from './user/user.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UserComponent } from './user/user.component';
   imports: [
     BrowserModule,
     CanvasWhiteboardModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
