@@ -1,0 +1,11 @@
+.col-sm-3{
+    height:100vh;
+    position:fixed;
+    overflow-y:scroll;
+    right:0;
+}
+
+.col-sm-9{
+    height:94vh;
+    position:fixed;
+}
