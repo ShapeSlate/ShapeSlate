@@ -1,6 +1,5 @@
 package ShapeSlate.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -13,19 +12,31 @@ public class SlateRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @NotNull
-    String sessionName;
+    String name;
 
     @JsonManagedReference(value = "slateroom")
     @OneToMany(mappedBy = "slateRoom")
     List<SlateRoomHasUser> slateRoomHasUsers;
+    @JsonManagedReference(value = "board")
+    @OneToMany(mappedBy = "boardSlateRoom")
+    List<Board> boards;
 
     public SlateRoom() {
     }
 
-    public SlateRoom(int id, @NotNull String sessionName, List<SlateRoomHasUser> slateRoomHasUsers) {
+    public SlateRoom(int id, @NotNull String name, List<SlateRoomHasUser> slateRoomHasUsers, List<Board> boards) {
         this.id = id;
-        this.sessionName = sessionName;
+        this.name = name;
         this.slateRoomHasUsers = slateRoomHasUsers;
+        this.boards = boards;
+    }
+
+    public List<Board> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(List<Board> boards) {
+        this.boards = boards;
     }
 
     public List<SlateRoomHasUser> getSlateRoomHasUsers() {
@@ -44,11 +55,11 @@ public class SlateRoom {
         this.id = id;
     }
 
-    public String getSessionName() {
-        return sessionName;
+    public String getName() {
+        return name;
     }
 
-    public void setSessionName(String sessionName) {
-        this.sessionName = sessionName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

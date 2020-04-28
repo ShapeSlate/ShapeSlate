@@ -1,12 +1,20 @@
 package ShapeSlate.backend.models;
 
+import javax.persistence.*;
+
+@Entity
 public class CanvasWhiteboardShapeOptions {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
     boolean shouldFillShape;
     String fillStyle;
     String strokeStyle;
     int lineWidth;
     String lineJoin;
     String lineCap;
+    @OneToOne
+    CanvasWhiteboardUpdate canvasWhiteboardUpdate;
 
     public CanvasWhiteboardShapeOptions() {
         this.shouldFillShape = false;
@@ -17,18 +25,38 @@ public class CanvasWhiteboardShapeOptions {
         this.lineCap = "round";
     }
 
-    public CanvasWhiteboardShapeOptions(boolean shouldFillShape,
+    public CanvasWhiteboardShapeOptions(int id,
+                                        boolean shouldFillShape,
                                         String fillStyle,
                                         String strokeStyle,
                                         int lineWidth,
                                         String lineJoin,
-                                        String lineCap) {
+                                        String lineCap,
+                                        CanvasWhiteboardUpdate canvasWhiteboardUpdate) {
+        this.id = id;
         this.shouldFillShape = shouldFillShape;
         this.fillStyle = fillStyle;
         this.strokeStyle = strokeStyle;
         this.lineWidth = lineWidth;
         this.lineJoin = lineJoin;
         this.lineCap = lineCap;
+        this.canvasWhiteboardUpdate = canvasWhiteboardUpdate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public CanvasWhiteboardUpdate getCanvasWhiteboardUpdate() {
+        return canvasWhiteboardUpdate;
+    }
+
+    public void setCanvasWhiteboardUpdate(CanvasWhiteboardUpdate canvasWhiteboardUpdate) {
+        this.canvasWhiteboardUpdate = canvasWhiteboardUpdate;
     }
 
     public boolean isShouldFillShape() {

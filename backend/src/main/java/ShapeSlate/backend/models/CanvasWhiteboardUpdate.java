@@ -1,16 +1,66 @@
 package ShapeSlate.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+
 enum CanvasWhiteboardUpdateType {
     START, DRAG, STOP
 }
 
+@Entity
 public class CanvasWhiteboardUpdate {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
     double x;
     double y;
     CanvasWhiteboardUpdateType type;
     String UUID;
     String selectedShape;
+    @OneToOne
     CanvasWhiteboardShapeOptions selectedShapeOptions;
+    // many canvaswhiteupdates in one board
+    @JsonBackReference(value = "boardUpdate")
+    @ManyToOne
+    Board boardUpdate;
+
+    public CanvasWhiteboardUpdate() {
+    }
+
+    public CanvasWhiteboardUpdate(int id,
+                                  double x,
+                                  double y,
+                                  CanvasWhiteboardUpdateType type,
+                                  String UUID,
+                                  String selectedShape,
+                                  CanvasWhiteboardShapeOptions selectedShapeOptions,
+                                  Board boardUpdate) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.type = type;
+        this.UUID = UUID;
+        this.selectedShape = selectedShape;
+        this.selectedShapeOptions = selectedShapeOptions;
+        this.boardUpdate = boardUpdate;
+    }
+
+    public Board getBoardUpdate() {
+        return boardUpdate;
+    }
+
+    public void setBoardUpdate(Board boardUpdate) {
+        this.boardUpdate = boardUpdate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public double getX() {
         return x;
@@ -53,6 +103,10 @@ public class CanvasWhiteboardUpdate {
             default:
                 System.out.println("Object with incorrect CanvasWhiteboardUpdateType");
         }
+    }
+
+    public void setType(CanvasWhiteboardUpdateType type) {
+        this.type = type;
     }
 
     public String getUUID() {
