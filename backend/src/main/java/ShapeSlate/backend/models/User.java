@@ -1,6 +1,5 @@
 package ShapeSlate.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -17,6 +16,7 @@ public class User {
     @NotNull
     String password;
 
+    // many slaterooms can have many slaterooms (junction table uses class SlateRoomHasUser)
     @JsonManagedReference(value = "user")
     @OneToMany(mappedBy = "user")
     List<SlateRoomHasUser> slateRoomHasUsers;

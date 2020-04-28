@@ -1,13 +1,9 @@
 package ShapeSlate.backend.controllers;
 
 import ShapeSlate.backend.models.Board;
-import ShapeSlate.backend.models.CanvasWhiteboardShapeOptions;
-import ShapeSlate.backend.models.CanvasWhiteboardUpdate;
-import ShapeSlate.backend.models.User;
 import ShapeSlate.backend.services.BoardService;
 import ShapeSlate.backend.services.CanvasWhiteboardShapeOptionsService;
 import ShapeSlate.backend.services.CanvasWhiteboardUpdateService;
-import ShapeSlate.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

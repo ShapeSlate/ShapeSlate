@@ -10,6 +10,7 @@ public class SlateRoomHasUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    // many slaterooms can have many slaterooms (junction table uses class SlateRoomHasUser)
     @JsonBackReference(value = "user")
     @ManyToOne
     User user;

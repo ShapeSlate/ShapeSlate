@@ -14,9 +14,11 @@ public class SlateRoom {
     @NotNull
     String name;
 
+    // many slaterooms can have many slaterooms (junction table uses class SlateRoomHasUser)
     @JsonManagedReference(value = "slateroom")
     @OneToMany(mappedBy = "slateRoom")
     List<SlateRoomHasUser> slateRoomHasUsers;
+    // many boards in one slateroom
     @JsonManagedReference(value = "board")
     @OneToMany(mappedBy = "boardSlateRoom")
     List<Board> boards;
