@@ -1,0 +1,24 @@
+<canvas-whiteboard #canvasWhiteboard 
+    [drawButtonClass]="'drawButtonClass'" 
+    [drawButtonText]="'Draw'"
+    [clearButtonClass]="'clearButtonClass'" 
+    [clearButtonText]="'Clear'"
+    [undoButtonText]="'Undo'"
+    [undoButtonEnabled]="true" 
+    [redoButtonText]="'Redo'" 
+    [redoButtonEnabled]="true" 
+    [colorPickerEnabled]="true"
+    [downloadedFileName]="'examplefileName'" 
+    (onBatchUpdate)="sendBatchUpdate($event)" 
+    (onClear)="onCanvasClear()"
+    (onUndo)="onCanvasUndo($event)" 
+    (onRedo)="onCanvasRedo($event)">
+</canvas-whiteboard>
+<br>
+<button (click)="yay()">bla</button>
+<br>
+<div>
+    {{myupdates | json}}
+</div>
+<app-user></app-user>
+<app-slateroom></app-slateroom>

@@ -3,25 +3,23 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CanvasWhiteboardModule } from 'ng2-canvas-whiteboard';
 import { AppComponent } from './app.component';
-import { CanvasblobComponent } from './canvasblob/canvasblob.component';
-/* look at dis */
-import { SessionComponent } from './session/session.component';
+import { BoardComponent } from './board/board.component';
 import { UserComponent } from './user/user.component';
 import { SlateRoomComponent } from './slateroom/slateroom.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CanvasblobComponent,
-    SessionComponent,
+    BoardComponent,
     UserComponent,
     SlateRoomComponent
-    /* look at sessioncomponent and slateroomcoponent */
   ],
   imports: [
     BrowserModule,
     CanvasWhiteboardModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
