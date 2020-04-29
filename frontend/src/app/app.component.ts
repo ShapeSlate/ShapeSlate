@@ -1,6 +1,8 @@
 import {Component, ViewEncapsulation, ViewChild} from '@angular/core';
 import {CanvasWhiteboardUpdate} from 'ng2-canvas-whiteboard';
 import {CanvasWhiteboardComponent} from 'ng2-canvas-whiteboard';
+import {BoardService} from './board.service';
+import { Board } from './board';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,19 +10,32 @@ import {CanvasWhiteboardComponent} from 'ng2-canvas-whiteboard';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
+
+  constructor(public boardService:BoardService){}
+
   @ViewChild('canvasWhiteboard') canvasWhiteboard: CanvasWhiteboardComponent;
   myupdates: CanvasWhiteboardUpdate[] = [];
   tempupdate: CanvasWhiteboardUpdate[] = [];
 
 
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
-    for (let i = 0; i < updates.length; i++) {
-      this.tempupdate.push(updates[i]);
-    }
-    this.myupdates = updates;
+    let board = new Board()
+    // for (let i = 0; i < updates.length; i++) {
+    //   updates[i].uuid = updates[i].UUID
+    // }
+    board.canvasWhiteBoardUpdate = updates
+
+    console.log(updates[0].UUID.constructor.name)
+    this.boardService.save(board).subscribe()
+
+    //for (let i = 0; i < updates.length; i++) {
+    //  this.tempupdate.push(updates[i]);
+    //}
+    //this.myupdates = updates;
     // this.myupdates = this.tempupdate;
-    console.log(updates);
+    //console.log(updates);
   }
+
   onCanvasClear() {
     // drawUpdates
     // [ { "x": 0.35661764705882354, "y": 0.383399209486166, "type": 0, "UUID": "f5e3ea98-362b-de26-eff3-f78938ed3a0e", "selectedShape": "FreeHandShape", "selectedShapeOptions": { "shouldFillShape": true, "fillStyle": "rgba(0,0,0,0)", "strokeStyle": "rgba(0, 0, 0, 1)", "lineWidth": 2, "lineJoin": "round", "lineCap": "round" } }, { "x": 0.35661764705882354, "y": 0.383399209486166, "type": 2, "UUID": "f5e3ea98-362b-de26-eff3-f78938ed3a0e" } ]
