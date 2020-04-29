@@ -3,10 +3,16 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CanvasWhiteboardModule } from 'ng2-canvas-whiteboard';
 import { AppComponent } from './app.component';
+import { CanvasblobComponent } from './canvasblob/canvasblob.component';
+import { SessionComponent } from './session/session.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CanvasblobComponent,
+    SessionComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
