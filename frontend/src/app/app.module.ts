@@ -10,7 +10,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GeneralLayoutComponent } from './general-layout/general-layout.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -21,6 +23,7 @@ import {MatMenuModule} from '@angular/material/menu';
     UserComponent,
     GeneralLayoutComponent,
     MenuBarComponent
+    
 
   ],
   imports: [
@@ -30,7 +33,10 @@ import {MatMenuModule} from '@angular/material/menu';
     BrowserAnimationsModule,
     MatGridListModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule,
+    MatMenuModule,
+    MatToolbarModule
 
   ],
   providers: [],

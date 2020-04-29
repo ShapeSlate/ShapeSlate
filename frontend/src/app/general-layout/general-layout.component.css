@@ -1,0 +1,33 @@
+mat-grid-tile {
+    margin:0px;
+    padding:0px;
+    border: 0px;
+    width:100vw;
+}
+
+#menuBar{
+    position: fixed;
+    background: blue;
+    height:4vh;
+}
+
+#drawBlock{
+    position: fixed;
+    background: teal;
+    height:96vh;
+}
+
+#chatBlock{
+    position: fixed;
+    background: red;
+    height:96vh;
+    
+}
+
+/* mat-card{
+    width:100vw;
+    height:100vh;
+    margin:0px;
+    padding:0px;
+    border: 0px;
+} */
