@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CanvasblobService } from './canvasblob.service';
+import { BoardService } from './board.service';
 
-describe('CanvasblobService', () => {
-  let service: CanvasblobService;
+describe('BoardService', () => {
+  let service: BoardService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CanvasblobService);
+    service = TestBed.inject(BoardService);
   });
 
   it('should be created', () => {

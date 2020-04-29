@@ -6,14 +6,12 @@ import { CanvasWhiteboardModule } from 'ng2-canvas-whiteboard';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { SlateRoomComponent } from './slateroom/slateroom.component';
-import { CanvasblobComponent } from './canvasblob/canvasblob.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
-    SlateRoomComponent,
-    CanvasblobComponent
+    SlateRoomComponent
   ],
   imports: [
     BrowserModule,
