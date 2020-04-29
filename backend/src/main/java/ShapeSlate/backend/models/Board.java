@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Board {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     // many boards in one slateroom
     @JsonBackReference(value = "board")
@@ -18,6 +18,7 @@ public class Board {
     // many canvaswhiteupdates in one board
     @JsonManagedReference(value = "boardUpdate")
     @OneToMany(mappedBy = "boardUpdate")
+//    @OneToMany(targetEntity=CanvasWhiteboardUpdate.class, mappedBy = "boardUpdate",cascade={CascadeType.ALL},orphanRemoval=true)
     List<CanvasWhiteboardUpdate> canvasWhiteboardUpdates;
 
     public Board() {

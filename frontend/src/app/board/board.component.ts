@@ -11,18 +11,18 @@ import { Board } from '../board';
   encapsulation: ViewEncapsulation.None
 })
 export class BoardComponent implements OnInit {
-
-
   constructor(public boardService: BoardService) { }
 
   @ViewChild('canvasWhiteboard') canvasWhiteboard: CanvasWhiteboardComponent;
-  myupdates: CanvasWhiteboardUpdate[] = [];
+  myupdates: Board = new Board;
   tempupdate: CanvasWhiteboardUpdate[] = [];
 
 
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
     let board = new Board()
-    board.canvasWhiteBoardUpdate = updates
+    board.canvasWhiteboardUpdates = updates
+    console.log(board)
+    this.myupdates = board
     this.boardService.save(board).subscribe()
   }
 
