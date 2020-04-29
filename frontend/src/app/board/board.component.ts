@@ -14,19 +14,18 @@ export class BoardComponent implements OnInit {
   constructor(public boardService: BoardService) { }
 
   @ViewChild('canvasWhiteboard') canvasWhiteboard: CanvasWhiteboardComponent;
-  myupdates: Board = new Board;
-  tempupdate: CanvasWhiteboardUpdate[] = [];
-
+  currentBoard: Board = new Board;
 
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
     let board = new Board()
     board.canvasWhiteboardUpdates = updates
     console.log(board)
-    this.myupdates = board
+    this.currentBoard = board
     this.boardService.save(board).subscribe()
   }
 
   onCanvasClear() {
+    this.boardService.delete(this.currentBoard.id).subscribe()
     console.log("The canvas was cleared");
   }
 
@@ -40,8 +39,12 @@ export class BoardComponent implements OnInit {
 
   yay() {
     console.log("test");
-    console.log(this.tempupdate);
-    this.canvasWhiteboard.drawUpdates(this.tempupdate);
+    this.boardService.find(this.currentBoard.id).subscribe(data => 
+      {
+        this.currentBoard = data
+        this.canvasWhiteboard.clearCanvas()
+        this.canvasWhiteboard.drawUpdates(this.currentBoard.canvasWhiteboardUpdates)
+      })
   }
 
   ngOnInit(): void {
