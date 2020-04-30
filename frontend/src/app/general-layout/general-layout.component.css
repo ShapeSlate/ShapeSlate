@@ -2,31 +2,62 @@ mat-grid-tile {
     margin:0px;
     padding:0px;
     border: 0px;
-    width:100vw;
-}
-
-#menuBar{
-    position: fixed;
-    background: blue;
-    height:4vh;
+    width:0vw;
+    height:0vh;
 }
 
 #drawBlock{
     position: fixed;
     background: teal;
-    height:96vh;
+    height:10vh;
 }
 
-#chatBlock{
+#receivedBlock{
     position: fixed;
     background: red;
-    height:96vh;
+    height:10vh;
+    margin:0px;
+    padding:0px;
+    border: 0px;
     
 }
 
-/* mat-card{
-    width:100vw;
-    height:100vh;
+
+basic-container{
+    position: fixed;
+    bottom:0;
+}
+
+mat-card{
+    /* width:100vw;
+    height:inherit;
+    margin:0px;
+    padding:0px;
+    border: 0px; */
+}
+
+::ng-deep mat-figure{
+    width:inherit;
+    height:inherit;
+    margin:0px;
+    padding:0px;
+    border: 0px;
+}
+::ng-deep mat-form-field-subscript-wrapper{
+    margin:0px;
+    padding:0px;
+    border: 0px;
+}
+
+
+
+/* ::ng-deep mat-form-field-wrapper{
+    margin:0px;
+    padding:0px;
+    border: 0px;
+}
+
+::ng-deep mat-form-field-wrapper.ng-tns-c99-0 {
     margin:0px;
     padding:0px;
     border: 0px;

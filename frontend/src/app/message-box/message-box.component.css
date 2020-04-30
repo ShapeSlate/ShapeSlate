@@ -1,0 +1,23 @@
+.example-form {
+    position:fixed;
+    width: 100%;
+    min-width: 100wh;
+    max-width: 100wh;
+    margin-bottom: -1.25em;
+    padding:0px;
+    border: 0px;
+    bottom: 0px;
+}
+
+
+
+/* ::ng-deep mat-form-field{
+    position:fixed;
+    padding:0px;
+    border: 0px;
+    bottom: 0px;
+} */
+
+/* .example-full-width {
+    width: 100%;
+} */

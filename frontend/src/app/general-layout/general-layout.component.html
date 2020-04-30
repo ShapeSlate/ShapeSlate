@@ -1,16 +1,18 @@
 <mat-toolbar>
-  <span>Shape Slate <app-menu-bar></app-menu-bar></span>
+  <span>ShapeSlate <app-menu-bar></app-menu-bar></span>
 </mat-toolbar>
 <mat-grid-list cols="18" rowHeight="2:1" [gutterSize]="'0px'">
-  <!-- <mat-grid-tile colspan="18" id="menuBar"> -->
-  <!-- <app-menu-bar></app-menu-bar> -->
-  <!-- </mat-grid-tile> -->
   <mat-grid-tile colspan="13" id="drawBlock">
-    <!-- <mat-card> -->
-    <!-- <app-canvasblob></app-canvasblob> -->
-    <!-- </mat-card> -->
+    <mat-card>
+      <app-canvasblob></app-canvasblob>
+    </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile colspan="5" id="chatBlock">
+  <mat-grid-tile colspan="5" id="receivedBlock">
 
-  </mat-grid-tile> -->
+  <!-- </mat-grid-tile>
+  <mat-grid-tile colspan="5" id="messageBlock"> -->
+    <!-- <div class="mat-app-background"> -->
+      <app-message-box></app-message-box>
+    <!-- </div> -->
+  </mat-grid-tile>
 </mat-grid-list>
