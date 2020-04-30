@@ -14,10 +14,14 @@
     overflow-y:scroll;
 }
 
+#messageBox{
+    height:20vh;
+}
+
 textarea{
     border-radius: 0px;
-    min-width:100vw;
-    max-width:100vw;
+    min-width:24.9vw;
+    max-width:inherit;
     min-height:100vw;
     max-height:100vw;
 }

@@ -7,13 +7,17 @@ import { BoardComponent } from './board/board.component';
 import { UserComponent } from './user/user.component';
 import { SlateRoomComponent } from './slateroom/slateroom.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MessageBoxComponent } from './message-box/message-box.component';
+import { ChatBoxComponent } from './chat-box/chat-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
     UserComponent,
-    SlateRoomComponent
+    SlateRoomComponent,
+    MessageBoxComponent,
+    ChatBoxComponent
   ],
   imports: [
     BrowserModule,
