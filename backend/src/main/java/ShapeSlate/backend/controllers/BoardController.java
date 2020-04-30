@@ -48,7 +48,6 @@ public class BoardController {
                     }
                 }
             }
-
             canvasWhiteboardUpdateService.saveAll(theUpdates);
         }
 //        System.out.println(myBoard.get(0).getCanvasWhiteboardUpdates());
@@ -94,7 +93,6 @@ public class BoardController {
                 myBoard.setCanvasWhiteboardUpdates(myUpdates);
             }
         }
-
         return myBoard;
     }
 }
