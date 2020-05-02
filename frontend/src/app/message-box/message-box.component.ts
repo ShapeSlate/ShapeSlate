@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../message';
+import EmojiPicker from "vanilla-emoji-picker";
+new EmojiPicker();
 
 @Component({
   selector: 'app-message-box',
@@ -13,6 +15,7 @@ export class MessageBoxComponent implements OnInit {
   constructor() { }
 
   submitMessage(event) {
+    // Removes the last newline character that is added by the enter.
     this.message.typedtext = this.message.typedtext.slice(0,this.message.typedtext.length-1);
     console.log(this.message);
     this.message.typedtext = "";

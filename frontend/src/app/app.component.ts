@@ -1,4 +1,5 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import * as EmojiPicker from "vanilla-emoji-picker";
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,13 @@ import {Component, ViewEncapsulation} from '@angular/core';
   styleUrls: ['./app.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  ngOnInit():void{
+    new EmojiPicker;
+
+
+  }
 
   
 }
