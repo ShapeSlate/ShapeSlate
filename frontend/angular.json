@@ -29,7 +29,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/vanilla-emoji-picker/dist/emojiPicker.min.js",
-              "src/assets/js/first_js_script.js",
+              "src/assets/js/first_js_script.js"
             ]
           },
           "configurations": {
