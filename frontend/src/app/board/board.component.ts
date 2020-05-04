@@ -18,18 +18,23 @@ export class BoardComponent implements OnInit, OnDestroy {
   @ViewChild('canvasWhiteboard') canvasWhiteboard: CanvasWhiteboardComponent;
   currentBoard: Board = new Board;
   drawnUUIDs = [];
+  sendUpdates: CanvasWhiteboardUpdate[] = [];
 
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
-    console.log(updates)
+      // console.log(updates)
       let board = new Board()
       board.canvasWhiteboardUpdates = updates
       this.boardService.save(board).subscribe()
-      }
+      console.log(this.canvasWhiteboard.getDrawingHistory())
+    }
 
   onCanvasClear() {
-      this.boardService.delete(this.currentBoard.id).subscribe(data => {
-        console.log("database was emptied.")
-      })
+    // this.canvasWhiteboard.clearCanvasLocal()  
+    this.boardService.delete(this.currentBoard.id).subscribe(data => {
+      console.log("database was emptied.")
+    })
+    this.sendUpdates = []
+    this.currentBoard = new Board()
       console.log("The canvas was cleared");
   }
 
@@ -46,18 +51,17 @@ export class BoardComponent implements OnInit, OnDestroy {
     // this.canvasWhiteboard.drawUpdates([new CanvasWhiteboardUpdate(0.35661764705882354, 0.383399209486166, 0, "f5e3ea98-362b-de26-eff3-f78938ed3a0e", "FreeHandShape")]);
     // this.canvasWhiteboard.drawUpdates([new CanvasWhiteboardUpdate(0.35661764705882354, 0.383399209486166, 2, "f5e3ea98-362b-de26-eff3-f78938ed3a0e", "FreeHandShape")]);
     // first check if mouse is being used
-    if (!this.canvasWhiteboard.drawingEnabled) {
+    // if (!this.canvasWhiteboard.drawingEnabled) {
       console.log("refreshing from db!");
       this.boardService.find(this.currentBoard.id).subscribe(data => {
-        this.canvasWhiteboard.clearCanvas()
         if (data != null) {
           console.log("refreshing from db! [data != null]");
           // now check if updates dont contain undefined
-          this.currentBoard = data
-          if (this.currentBoard.canvasWhiteboardUpdates != null) {
+          // this.currentBoard = data
+          if (data.canvasWhiteboardUpdates != null) {
             var allCorrect: boolean = true;
             var endIndexes: number[] = [0];
-            this.currentBoard.canvasWhiteboardUpdates.forEach((element, index) => {
+            data.canvasWhiteboardUpdates.forEach((element, index) => {
               if (element == undefined || element == null) {
                 allCorrect = false;
               } else if (element.type == 2 || element.type == 1) {
@@ -66,34 +70,48 @@ export class BoardComponent implements OnInit, OnDestroy {
             });
             if (allCorrect) {
               console.log("refreshing from db! [allCorrect]");
+              console.log(this.canvasWhiteboard.getDrawingHistory())
               var sendUpdates: CanvasWhiteboardUpdate[] = []
               var newUUIDs = []
-              this.currentBoard.canvasWhiteboardUpdates.slice(0, endIndexes[endIndexes.length-1]).forEach((element, index) => {
-                if (!(element.UUID in this.drawnUUIDs)) {
-                  sendUpdates.push(element)
-                  newUUIDs.push(element.UUID)
+              var finishedUpdatesSlice: CanvasWhiteboardUpdate[] = data.canvasWhiteboardUpdates.slice(0, endIndexes[endIndexes.length-1])
+              // add only if not drawn yet.
+              finishedUpdatesSlice.forEach(childUpdate => {
+                if (!this.canvasWhiteboard.getDrawingHistory().some((parentUpdate) => (
+                  
+                  childUpdate.UUID == parentUpdate.UUID  &&
+                  childUpdate.x == parentUpdate.x &&
+                  childUpdate.y == parentUpdate.y &&
+                  childUpdate.selectedShape == parentUpdate.selectedShape &&
+                  childUpdate.type == parentUpdate.type                
+                  ))) {
+                  sendUpdates.push(childUpdate)
+                  console.log(childUpdate.stringify)
                 }
-              });
-              this.drawnUUIDs.push(...newUUIDs)
+              })
 
               if (sendUpdates.length > 0) {
-                // this.canvasWhiteboard.drawUpdates([new CanvasWhiteboardUpdate(0.35661764705882354, 0.383399209486166, 0, "f5e3ea98-362b-de26-eff3-f78938ed3a0e", "FreeHandShape")]);
-                // this.canvasWhiteboard.drawUpdates([new CanvasWhiteboardUpdate(0.35661764705882354, 0.383399209486166, 2, "f5e3ea98-362b-de26-eff3-f78938ed3a0e", "FreeHandShape")]);
-                this.canvasWhiteboard.drawUpdates(sendUpdates)
+                console.log("new!")
+                this.sendUpdates = sendUpdates
               } else {
-                console.log("database empty!")
+                this.sendUpdates = []
+                console.log("nothing new!")
               }
             }
           }
         }
-      })
-    }
+    })    
+    // }
   }
 
   ngOnInit(): void {
-    // setInterval(() => {
-    //   this.drawDatabaseUpdates();
-    // }, 2000);)
+    // history not registered with foreign drawUpdates?...
+    setInterval(() => {
+      console.log("interval")
+      console.log(console.log(this.canvasWhiteboard.getDrawingHistory()))
+      this.drawDatabaseUpdates();
+      // this.canvasWhiteboard.clearCanvas()
+      this.canvasWhiteboard.drawUpdates(this.sendUpdates)
+    }, 5000);
   }
 
   ngOnDestroy() {
