@@ -33,12 +33,12 @@ public class BoardController {
 
     @PostMapping("/board")
     public List<Board> save(@RequestBody String json) throws JsonProcessingException {
+//        System.out.println("save request!");
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         List<Board> myBoard = Arrays.asList(mapper.readValue(json, Board[].class));
 
         for (Board aBoard : myBoard) {
-//            System.out.println(aBoard.getId());
             List<CanvasWhiteboardUpdate> theUpdates = aBoard.getCanvasWhiteboardUpdates();
             if (theUpdates != null) {
                 for (CanvasWhiteboardUpdate anUpdate : theUpdates) {
@@ -91,8 +91,11 @@ public class BoardController {
             if (myUpdates != null) {
                 myUpdates.sort(new CanvasUpdateComparator());
                 myBoard.setCanvasWhiteboardUpdates(myUpdates);
+//                System.out.println(myUpdates.get(myUpdates.size()-1).getType());
             }
         }
+
+
         return myBoard;
     }
 }
