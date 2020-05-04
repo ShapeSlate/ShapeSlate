@@ -1,4 +1,5 @@
 canvas-whiteboard {
     display: block;
     height: 50vh;
+    width: auto;
 }
