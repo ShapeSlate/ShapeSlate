@@ -161,12 +161,21 @@ export class BoardComponent implements OnInit, OnDestroy {
   drawPerUUID(updates: CanvasWhiteboardUpdate[]) {
     // this assumes the updates are in correct order!
     var updateSet: CanvasWhiteboardUpdate[] = [];
+    var started: boolean = false;
     updates.forEach(element => {
-      updateSet.push(element)
-      if (element.type == 2) {
-        console.log("finished!")
-        this.canvasWhiteboard.drawUpdates(updateSet);
-        updateSet = [];
+      if (element.type == 0) {
+        started = true;
+        updateSet.push(element)
+      }
+      if (started) {
+        if (element.type == 1) {
+          updateSet.push(element)
+        } else if (element.type == 2) {
+          started = false;
+          console.log("finished!");
+          this.canvasWhiteboard.drawUpdates(updateSet);
+          updateSet = [];
+        } 
       }
     })
   }
