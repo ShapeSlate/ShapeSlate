@@ -13,19 +13,48 @@ new EmojiPicker();
 })
 export class MessageBoxComponent {
 
+  webSocketEndPoint: string = 'http://localhost:8080/ws';
+  topic: string = "/topic/chatlog";
+  stompClient: any;
   message = new Message;
-  stompClient = null;
 
 
   constructor() { }
 
-  submitMessage(event) {
+  connect() {
+    let socket = new SockJS(this.webSocketEndPoint);
+    this.stompClient = Stomp.over(socket);
+    const _this = this;
+    _this.stompClient.connect({}, function (frame){
+      _this.stompClient.subscribe(_this.topic, function (outputMessage) {
+        _this.displayReceivedMessage(JSON.parse(outputMessage.body).receivedTextMessage);
+      });
+    }, this.errorCallBack);
+  }
+
+      // this.stompClient.connect({}, function (frame) {
+    //     // Send data to the server.
+    //     this.stompClient.subscribe('/topic/chatlog', function (outputMessage) {
+    //         this.displayReceivedMessage(JSON.parse(outputMessage.body).receivedTextMessage);
+    //     });
+    // });
+
+  sendUserMessage(event) {
     // Removes the last newline character that is added by the enter.
-    this.message.typedtext = this.message.typedtext.slice(0,this.message.typedtext.length-1);
+    this.message.typedtext = this.message.typedtext.slice(0, this.message.typedtext.length - 1);
     console.log(this.message);
-    this.sendUserMessage(this.stompClient)
+    this.stompClient.send("/app/hello", {}, JSON.stringify({ 'userTypedTextMessage': this.message.typedtext }));
     this.message.typedtext = "";
 
+
+  }
+
+  // on error, schedule a reconnection attempt
+  errorCallBack(error) {
+    console.log("errorCallBack -> " + error)
+    setTimeout(() => {
+      this.connect();
+    }, 5000);
   }
 
   newLineInMessage(event) {
@@ -36,28 +65,16 @@ export class MessageBoxComponent {
     $("#chatlog").append("<tr><td>" + message + "</td></tr>");
   }
 
-  connect(stompClient) {
-      var socket = new SockJS('/gs-guide-websocket');
-      stompClient = Stomp.over(socket);
-      stompClient.connect({}, function (frame) {
-          // Send data to the server.
-          stompClient.subscribe('/topic/chatlog', function (outputMessage) {
-              this.displayReceivedMessage(JSON.parse(outputMessage.body).receivedTextMessage);
-          });
-      });
+
+
+  ngAfterViewInit(): void {
+    this.connect();
   }
 
-ngAfterViewInit():void{
-  this.connect(this.stompClient);
-}
+  //   sendUserMessage(stompClient) {
+  //     stompClient.send("/app/hello", {}, JSON.stringify({'userTypedTextMessage': $("[name=textareamessage]").val()}));
+  // }
 
-//   sendUserMessage(stompClient) {
-//     stompClient.send("/app/hello", {}, JSON.stringify({'userTypedTextMessage': $("[name=textareamessage]").val()}));
-// }
-
-sendUserMessage(stompClient) {
-  stompClient.send("/app/hello", {}, JSON.stringify({'userTypedTextMessage': this.message.typedtext}));
-}
 
 
 
@@ -71,11 +88,11 @@ sendUserMessage(stompClient) {
   // }
 
   // ngOnInit(): void {
-    
+
   //   window.onload: () => 
   // }
 
-  
-  
+
+
 
 }
