@@ -117,8 +117,6 @@ export class BoardComponent implements OnInit, OnDestroy {
                   this.drawnUpdates.push(...this.sendUpdates)
                   this.sendUpdates = []
                 } else {
-                  // this.sendUpdates = [];
-                  // console.log("nothing new!");
                 }
               }
             } else {
@@ -134,8 +132,6 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     setInterval(() => {
-      // console.log("interval")
-      // this.printDebugInfo()
       this.drawDatabaseUpdates();
     }, 1000);
   }
@@ -174,12 +170,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   printDebugInfo() {
-    // console.log(
-    //   "===DrawingEnabled===;\n" + JSON.stringify(this.canvasWhiteboard.getDrawingEnabled()) +
-    //   "\n===ShouldDraw===;\n" + JSON.stringify(this.canvasWhiteboard.getShouldDraw()) +
-    //   "\n===DrawingHistory===;\n" + JSON.stringify(this.canvasWhiteboard.getDrawingHistory())
-    // );
-
     console.log(this.drawing)
     console.log(this.deleting)
     console.log(this.canvasWhiteboard.drawingEnabled)

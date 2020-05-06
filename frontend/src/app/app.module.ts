@@ -10,8 +10,7 @@ import { SlateRoomComponent } from './slateroom/slateroom.component';
 import { CanvasWhiteboardModule } from 'ng2-canvas-whiteboard';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageBoxComponent } from './message-box/message-box.component';
-import { ChatBoxComponent } from './chat-box/chat-box.component';
-import { ChatLogComponentComponent } from './chat-log-component/chat-log-component.component';
+
 
 @NgModule({
   declarations: [
@@ -20,9 +19,7 @@ import { ChatLogComponentComponent } from './chat-log-component/chat-log-compone
     BoardComponent,
     UserComponent,
     SlateRoomComponent,
-    MessageBoxComponent,
-    ChatBoxComponent,
-    ChatLogComponentComponent
+    MessageBoxComponent
   ],
   imports: [
     BrowserModule,
