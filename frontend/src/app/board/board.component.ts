@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CanvasWhiteboardUpdate, CanvasWhiteboardModule, CanvasWhiteboardShapeOptions } from 'ng2-canvas-whiteboard';
 import { CanvasWhiteboardComponent } from 'ng2-canvas-whiteboard';
 import { BoardService } from '../board.service';
@@ -10,12 +10,15 @@ import { Board } from '../board';
   styleUrls: ['./board.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class BoardComponent implements OnInit, OnDestroy {
+export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  constructor(public boardService: BoardService) {
+  constructor(public boardService: BoardService, private elementRef:ElementRef) {
   }
 
   @ViewChild('canvasWhiteboard') canvasWhiteboard: CanvasWhiteboardComponent;
+  @ViewChild('canvasWrapperDiv') canvasWhiteboardButtons: ElementRef;
+  @ViewChild('one') d1:ElementRef;
+
   currentBoard: Board = new Board;
   drawnUpdates = [];
   sendUpdates: CanvasWhiteboardUpdate[] = [];
@@ -23,6 +26,10 @@ export class BoardComponent implements OnInit, OnDestroy {
   drawing: boolean = false;
   deleting: boolean = false;
   databaseUpdating: boolean = false;
+
+  customButtons = [
+    ['Eraser' , this.eraser]
+  ];
 
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
     if (!this.databaseUpdating) {
@@ -59,6 +66,12 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   onCanvasRedo(updateUUID: string) {
     console.log(`REDO with uuid: ${updateUUID}`);
+  }
+
+  eraser() {
+    this.canvasWhiteboard.changeStrokeColor('#ffffff');
+    this.canvasWhiteboard.changeFillColor('#ffffff');
+    this.canvasWhiteboard.lineWidth = 20;
   }
 
   drawDatabaseUpdates() {
@@ -140,6 +153,12 @@ export class BoardComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  ngAfterViewInit() {
+    this.customButtons.forEach(element => {
+      this.extraButton(element[0], element[1])
+    })
+  }
+
   ngOnDestroy() {
   }
 
@@ -173,6 +192,21 @@ export class BoardComponent implements OnInit, OnDestroy {
     })
   }
 
+  extraButton(name, fun) {
+    var buttonDiv: Element = document.getElementsByClassName("canvas_whiteboard_buttons")[0];
+    var divvy: Element =  document.getElementsByClassName("canvas_whiteboard_button-draw")[0];
+    var ngclass;
+    (divvy.getAttributeNames()).forEach((element: string) => {
+      if (element.startsWith("_ngcontent-")) {
+        ngclass = element;
+      }
+    });
+    var customClass = 'canvas_whiteboard_button-'+name.toLowerCase();
+    buttonDiv.insertAdjacentHTML("beforeend", '<button type="button" class="canvas_whiteboard_button '+customClass+'" '+ngclass+'> '+name+' </button>');
+    var thing: Element =  document.getElementsByClassName(customClass)[0];
+    thing.addEventListener('click', fun.bind(this));
+  }
+
   printDebugInfo() {
     // console.log(
     //   "===DrawingEnabled===;\n" + JSON.stringify(this.canvasWhiteboard.getDrawingEnabled()) +
@@ -194,5 +228,9 @@ export class BoardComponent implements OnInit, OnDestroy {
       new CanvasWhiteboardUpdate(0.45661764705882354, 0.403399209486166, 0, "f6e3ea98-362b-de26-eff3-f78938ed3a0f", "FreeHandShape"),
       new CanvasWhiteboardUpdate(0.45661764705882354, 0.403399209486166, 2, "f6e3ea98-362b-de26-eff3-f78938ed3a0f", "FreeHandShape")
     ]);
+  }
+
+  testConsoleFucntion() {
+    console.log("test")
   }
 }

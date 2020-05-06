@@ -4,18 +4,14 @@
     [drawingEnabled]="true"
     [clearButtonClass]="'clearButtonClass'" 
     [clearButtonText]="'Clear'"
-    [undoButtonText]="'Undo'"
-    [undoButtonEnabled]="true" 
-    [redoButtonText]="'Redo'" 
-    [redoButtonEnabled]="true" 
     [colorPickerEnabled]="true"
     [downloadedFileName]="'examplefileName'" 
     (onBatchUpdate)="sendBatchUpdate($event)" 
-    (onClear)="onCanvasClear()"
-    (onUndo)="onCanvasUndo($event)" 
-    (onRedo)="onCanvasRedo($event)">
+    (onClear)="onCanvasClear()">
 </canvas-whiteboard>
 <br>
+
+<div class="one"></div>
 <!-- <button (click)="drawDatabaseUpdates()">drawDatabaseUpdate</button> -->
 <!-- 
 <br>
@@ -25,6 +21,5 @@
     {{currentBoard | json}}
 </div>  
 -->
-
 <app-user></app-user>
 <app-slateroom></app-slateroom>
