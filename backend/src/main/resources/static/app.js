@@ -2,7 +2,7 @@ var stompClient = null;
 window.onload = connect;
 
 function connect() {
-    var socket = new SockJS('/gs-guide-websocket');
+    var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         // Send data to the server.

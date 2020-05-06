@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Message } from '../message';
 import EmojiPicker from "vanilla-emoji-picker";
+import * as $ from 'jquery';
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
 new EmojiPicker();
 
 @Component({
@@ -8,9 +11,11 @@ new EmojiPicker();
   templateUrl: './message-box.component.html',
   styleUrls: ['./message-box.component.css']
 })
-export class MessageBoxComponent implements OnInit {
+export class MessageBoxComponent {
 
   message = new Message;
+  stompClient = null;
+
 
   constructor() { }
 
@@ -18,6 +23,7 @@ export class MessageBoxComponent implements OnInit {
     // Removes the last newline character that is added by the enter.
     this.message.typedtext = this.message.typedtext.slice(0,this.message.typedtext.length-1);
     console.log(this.message);
+    this.sendUserMessage(this.stompClient)
     this.message.typedtext = "";
 
   }
@@ -25,6 +31,35 @@ export class MessageBoxComponent implements OnInit {
   newLineInMessage(event) {
     this.message.typedtext + "\n";
   }
+
+  displayReceivedMessage(message) {
+    $("#chatlog").append("<tr><td>" + message + "</td></tr>");
+  }
+
+  connect(stompClient) {
+      var socket = new SockJS('/gs-guide-websocket');
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, function (frame) {
+          // Send data to the server.
+          stompClient.subscribe('/topic/chatlog', function (outputMessage) {
+              this.displayReceivedMessage(JSON.parse(outputMessage.body).receivedTextMessage);
+          });
+      });
+  }
+
+ngAfterViewInit():void{
+  this.connect(this.stompClient);
+}
+
+//   sendUserMessage(stompClient) {
+//     stompClient.send("/app/hello", {}, JSON.stringify({'userTypedTextMessage': $("[name=textareamessage]").val()}));
+// }
+
+sendUserMessage(stompClient) {
+  stompClient.send("/app/hello", {}, JSON.stringify({'userTypedTextMessage': this.message.typedtext}));
+}
+
+
 
 
 
@@ -35,7 +70,12 @@ export class MessageBoxComponent implements OnInit {
   //   }
   // }
 
-  ngOnInit(): void {
-  }
+  // ngOnInit(): void {
+    
+  //   window.onload: () => 
+  // }
+
+  
+  
 
 }

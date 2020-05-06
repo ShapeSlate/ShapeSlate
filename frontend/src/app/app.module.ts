@@ -9,6 +9,7 @@ import { SlateRoomComponent } from './slateroom/slateroom.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
+import { ChatLogComponentComponent } from './chat-log-component/chat-log-component.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ChatBoxComponent } from './chat-box/chat-box.component';
     UserComponent,
     SlateRoomComponent,
     MessageBoxComponent,
-    ChatBoxComponent
+    ChatBoxComponent,
+    ChatLogComponentComponent
   ],
   imports: [
     BrowserModule,
