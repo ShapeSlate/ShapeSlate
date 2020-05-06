@@ -1,0 +1,9 @@
+textarea{
+    /* position:absolute;
+    height: 100vh; */
+    border-radius: 0px;
+    min-width:24.9vw;
+    max-width:inherit;
+    min-height:100vw;
+    max-height:100vw;
+}

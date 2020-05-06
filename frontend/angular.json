@@ -26,7 +26,13 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/vanilla-emoji-picker/dist/emojiPicker.min.js",
+              "node_modules/sockjs-client/dist/sockjs.min.js",
+              "node_modules/stompjs/lib/stomp.min.js",
+              "src/assets/js/first_js_script.js"
+            ]
           },
           "configurations": {
             "production": {

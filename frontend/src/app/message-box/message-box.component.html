@@ -1,0 +1,3 @@
+<form (keyup.shift.enter)="newLineInMessage($event)" (keyup.enter)="sendUserMessage($event)">
+    <textarea [(ngModel)]="message.typedtext" class="form-control p-0 b-0 m-0" placeholder="Send a message." name="textareamessage" data-emoji-picker="true"></textarea>
+</form>
