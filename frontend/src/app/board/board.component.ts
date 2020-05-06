@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { CanvasWhiteboardUpdate, CanvasWhiteboardModule, CanvasWhiteboardShapeOptions } from 'ng2-canvas-whiteboard';
+import { CanvasWhiteboardUpdate, CanvasWhiteboardShapeOptions, CanvasWhiteboardShapeSelectorComponent, CanvasWhiteboardShapeService, CanvasWhiteboardService} from 'ng2-canvas-whiteboard';
 import { CanvasWhiteboardComponent } from 'ng2-canvas-whiteboard';
 import { BoardService } from '../board.service';
 import { Board } from '../board';
@@ -12,12 +12,15 @@ import { Board } from '../board';
 })
 export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  constructor(public boardService: BoardService, private elementRef:ElementRef) {
+  constructor(
+    public boardService: BoardService, 
+    private elementRef: ElementRef, 
+    private _canvasWhiteboardService: CanvasWhiteboardService, 
+    private _canvasWhiteboardShapeService: CanvasWhiteboardShapeService) {
   }
 
   @ViewChild('canvasWhiteboard') canvasWhiteboard: CanvasWhiteboardComponent;
   @ViewChild('canvasWrapperDiv') canvasWhiteboardButtons: ElementRef;
-  @ViewChild('one') d1:ElementRef;
 
   currentBoard: Board = new Board;
   drawnUpdates = [];
@@ -28,7 +31,8 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
   databaseUpdating: boolean = false;
 
   customButtons = [
-    ['Eraser' , this.eraser]
+    ['Eraser' , this.eraser],
+    ['Reset Options' , this.resetOptionsButton]
   ];
 
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
@@ -42,7 +46,7 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
           this.drawing = false;
         }
       })
-      console.log(this.canvasWhiteboard.getDrawingHistory());
+      // console.log(this.canvasWhiteboard.getDrawingHistory());
     }
   }
 
@@ -60,20 +64,6 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  onCanvasUndo(updateUUID: string) {
-    console.log(`UNDO with uuid: ${updateUUID}`);
-  }
-
-  onCanvasRedo(updateUUID: string) {
-    console.log(`REDO with uuid: ${updateUUID}`);
-  }
-
-  eraser() {
-    this.canvasWhiteboard.changeStrokeColor('#ffffff');
-    this.canvasWhiteboard.changeFillColor('#ffffff');
-    this.canvasWhiteboard.lineWidth = 20;
-  }
-
   drawDatabaseUpdates() {
     // first check if mouse is being used or a delete action is happening
     if (!this.drawing && !this.deleting ){
@@ -81,10 +71,10 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
       this.drawing = false; 
       this.deleting = false;
       this.databaseUpdating = true;
-      console.log("refreshing from db!");
+      // console.log("refreshing from db!");
       this.boardService.find(this.currentBoard.id).subscribe(data => {
         if (data != null) {
-          console.log("refreshing from db! [data != null]");
+          // console.log("refreshing from db! [data != null]");
           // now check if updates dont contain undefined
           // this.currentBoard = data
           if (data.canvasWhiteboardUpdates != null) {
@@ -104,8 +94,7 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
                 }
               });
               if (allCorrect) {
-                console.log("refreshing from db! [allCorrect]");
-                // console.log(this.canvasWhiteboard.getDrawingHistory())
+                // console.log("refreshing from db! [allCorrect]");
                 var sendUpdates: CanvasWhiteboardUpdate[] = [];
                 var finishedUpdatesSlice: CanvasWhiteboardUpdate[] = cleanUpdates.slice(0, endIndexes[endIndexes.length-1]);
                 
@@ -157,6 +146,7 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.customButtons.forEach(element => {
       this.extraButton(element[0], element[1])
     })
+    this.resetOptionsButton();
   }
 
   ngOnDestroy() {
@@ -194,26 +184,41 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   extraButton(name, fun) {
     var buttonDiv: Element = document.getElementsByClassName("canvas_whiteboard_buttons")[0];
-    var divvy: Element =  document.getElementsByClassName("canvas_whiteboard_button-draw")[0];
+    var drawButton: Element =  document.getElementsByClassName("canvas_whiteboard_button-draw")[0];
+    // get current ngclass
     var ngclass;
-    (divvy.getAttributeNames()).forEach((element: string) => {
+    (drawButton.getAttributeNames()).forEach((element: string) => {
       if (element.startsWith("_ngcontent-")) {
         ngclass = element;
       }
     });
-    var customClass = 'canvas_whiteboard_button-'+name.toLowerCase();
+    var customClass = 'canvas_whiteboard_button-'+name.replace(/\s/g, "").toLowerCase();
     buttonDiv.insertAdjacentHTML("beforeend", '<button type="button" class="canvas_whiteboard_button '+customClass+'" '+ngclass+'> '+name+' </button>');
     var thing: Element =  document.getElementsByClassName(customClass)[0];
     thing.addEventListener('click', fun.bind(this));
   }
 
-  printDebugInfo() {
-    // console.log(
-    //   "===DrawingEnabled===;\n" + JSON.stringify(this.canvasWhiteboard.getDrawingEnabled()) +
-    //   "\n===ShouldDraw===;\n" + JSON.stringify(this.canvasWhiteboard.getShouldDraw()) +
-    //   "\n===DrawingHistory===;\n" + JSON.stringify(this.canvasWhiteboard.getDrawingHistory())
-    // );
+  eraser() {
+    this.canvasWhiteboard.changeStrokeColor('#ffffff');
+    this.canvasWhiteboard.changeFillColor('#ffffff');
+    this.canvasWhiteboard.lineWidth = 20;
+    this.canvasWhiteboard.selectShape(this._canvasWhiteboardShapeService.getCurrentRegisteredShapes()[0]);
+  }
 
+  resetOptionsButton() {
+    this.canvasWhiteboard.changeStrokeColor('#000000');
+    this.canvasWhiteboard.changeFillColor('#ffffff');
+    this.canvasWhiteboard.lineWidth = 2;
+    // set freehand
+    this.canvasWhiteboard.selectShape(this._canvasWhiteboardShapeService.getCurrentRegisteredShapes()[0]);
+  }
+
+  printDebugInfo() {
+    console.log(
+      "===DrawingEnabled===;\n" + JSON.stringify(this.canvasWhiteboard.getDrawingEnabled()) +
+      "\n===ShouldDraw===;\n" + JSON.stringify(this.canvasWhiteboard.getShouldDraw()) +
+      "\n===DrawingHistory===;\n" + JSON.stringify(this.canvasWhiteboard.getDrawingHistory())
+    );
     console.log(this.drawing)
     console.log(this.deleting)
     console.log(this.canvasWhiteboard.drawingEnabled)
