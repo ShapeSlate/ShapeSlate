@@ -1,39 +1,47 @@
 <div class="p-0 container-fluid no-gutters p-0 b-0 m-0">
-    <div class="row no-gutters">
-      <div class="col-sm-9 p-0 b-0 m-0">
-        <app-board></app-board>
+  <div class="row no-gutters">
+    <div class="col-sm-9 p-0 b-0 m-0">
+      <app-board></app-board>
+    </div>
+    <div class="col-sm-3 bg-primary p-0 b-0 m-0">
+      <div id="chatBox">
+        <tbody id="chatlog">
+        </tbody>
+        <!-- <app-chat-log-component></app-chat-log-component> -->
+        <!-- <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table> -->
       </div>
-      <div class="col-sm-3 bg-primary p-0 b-0 m-0">
-        <div id="chatBox">
-          <p>Chat test 1</p>
-          <p>Chat test 2</p>
-          <p>Chat test 3</p>
-          <p>Chat test 4</p>
-          <p>Chat test 5</p>
-          <p>Chat test 6</p>
-          <p>Chat test 7</p>
-          <p>Chat test 8</p>
-          <p>Chat test 9</p>
-          <p>Chat test 10</p>
-          <p>Chat test 11</p>
-          <p>Chat test 12</p>
-          <p>Chat test 13</p>
-          <p>Chat test 14</p>
-          <p>Chat test 15</p>
-          <p>Chat test 16</p>
-          <p>Chat test 17</p>
-          <p>Chat test 18</p>
-          <p>Chat test 19</p>
-          <p>Chat test 20</p>
-          <p>Chat test 21</p>
-          <p>Chat test 22</p>
-          <p>Chat test 23</p>
-          <p>Chat test 24</p>
-          <p>Chat test 25</p>
-          <p>Chat test 26</p>
-        </div>
-          <textarea class="form-control p-0 b-0 m-0" id="exampleFormControlTextarea1" rows="3" placeholder="Send a message."></textarea>
-      </div>
+        <app-message-box></app-message-box>
+      <!-- <textarea class="form-control p-0 b-0 m-0" id="exampleFormControlTextarea1"
+        placeholder="Send a message."></textarea> -->
     </div>
   </div>
-  
+</div>
