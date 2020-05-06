@@ -1,6 +1,7 @@
 <canvas-whiteboard #canvasWhiteboard 
     [drawButtonClass]="'drawButtonClass'" 
     [drawButtonText]="'Draw'"
+    [drawingEnabled]="true"
     [clearButtonClass]="'clearButtonClass'" 
     [clearButtonText]="'Clear'"
     [undoButtonText]="'Undo'"
@@ -15,10 +16,15 @@
     (onRedo)="onCanvasRedo($event)">
 </canvas-whiteboard>
 <br>
-<button (click)="yay()">bla</button>
+<!-- <button (click)="drawDatabaseUpdates()">drawDatabaseUpdate</button> -->
+<!-- 
 <br>
+<button (click)="testButton()">testButton</button>
+
 <div>
-    {{myupdates | json}}
-</div>
+    {{currentBoard | json}}
+</div>  
+-->
+
 <app-user></app-user>
 <app-slateroom></app-slateroom>

@@ -1,6 +1,7 @@
 package ShapeSlate.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -22,7 +23,8 @@ public class CanvasWhiteboardUpdate {
     CanvasWhiteboardShapeOptions selectedShapeOptions;
     // many canvaswhiteupdates in one board
     @JsonBackReference(value = "boardUpdate")
-    @ManyToOne
+    @ManyToOne(targetEntity=Board.class)
+    //    @ManyToOne(targetEntity=Board.class, cascade=CascadeType.ALL)
     Board boardUpdate;
 
     public CanvasWhiteboardUpdate() {
@@ -96,23 +98,27 @@ public class CanvasWhiteboardUpdate {
         switch(type) {
             case 0:
                 this.type = CanvasWhiteboardUpdateType.START;
+                break;
             case 1:
                 this.type = CanvasWhiteboardUpdateType.DRAG;
+                break;
             case 2:
                 this.type = CanvasWhiteboardUpdateType.STOP;
+                break;
             default:
                 System.out.println("Object with incorrect CanvasWhiteboardUpdateType");
         }
     }
 
-    public void setType(CanvasWhiteboardUpdateType type) {
-        this.type = type;
-    }
+//    public void setType(CanvasWhiteboardUpdateType type) {
+//        this.type = type;
+//    }
 
     public String getUUID() {
         return UUID;
     }
 
+    @JsonProperty("UUID")
     public void setUUID(String UUID) {
         this.UUID = UUID;
     }
@@ -131,6 +137,20 @@ public class CanvasWhiteboardUpdate {
 
     public void setSelectedShapeOptions(CanvasWhiteboardShapeOptions selectedShapeOptions) {
         this.selectedShapeOptions = selectedShapeOptions;
+    }
+
+    @Override
+    public String toString() {
+        return "CanvasWhiteboardUpdate{" +
+                "id=" + id +
+                ", x=" + x +
+                ", y=" + y +
+                ", type=" + type +
+                ", UUID='" + UUID + '\'' +
+                ", selectedShape='" + selectedShape + '\'' +
+                ", selectedShapeOptions=" + selectedShapeOptions +
+                ", boardUpdate=" + boardUpdate +
+                '}';
     }
 }
 
