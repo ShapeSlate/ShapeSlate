@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { CanvasWhiteboardUpdate, CanvasWhiteboardModule, CanvasWhiteboardShapeOptions } from 'ng2-canvas-whiteboard';
 import { CanvasWhiteboardComponent } from 'ng2-canvas-whiteboard';
-import { BoardService } from '../board.service';
-import { Board } from '../board';
+import { BoardService } from '../_services';
+import { Board } from '../_models';
 
 @Component({
   selector: 'app-board',

@@ -25,12 +25,12 @@ public class SlateRoomController {
         }
     }
 
-    @PostMapping("/slateroom")
+    @PostMapping("/create")
     public SlateRoom create(@RequestBody SlateRoom slateRoom) {
         return slateRoomService.save(slateRoom);
     }
 
-    @PutMapping("/slateroom")
+    @PutMapping("/create")
     public SlateRoom update(@RequestBody SlateRoom slateRoom) {
         return slateRoomService.save(slateRoom);
     }

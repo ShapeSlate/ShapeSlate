@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping("/login")
     public HttpStatus login(@RequestBody User user) {
-        User myUser = userService.findByUsername(user.getName());
+        User myUser = userService.findByName(user.getName());
         if(myUser != null) {
             if(myUser.getPassword().equals(user.getPassword())){
                 return HttpStatus.OK;
