@@ -4,6 +4,8 @@ import { CanvasWhiteboardComponent } from 'ng2-canvas-whiteboard';
 import { BoardService } from '../board.service';
 import { Board } from '../board';
 
+declare function setFunctionSlider(): void;
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -146,7 +148,15 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.customButtons.forEach(element => {
       this.extraButton(element[0], element[1])
     })
+    // add slider
+    // <div class="slidecontainer"><input type="range" min="1" max="100" value="50" class="slider" id="myRange"></div>
+    var buttonDiv: Element = document.getElementsByClassName("canvas_whiteboard_buttons")[0];
+    buttonDiv.insertAdjacentHTML("beforeend", '<div class="slidecontainer"><input name="linewidthslider" type="range" min="1" max="50" value="2" class="slider" id="myRange"></div>');
+    var inputSlider: Element = document.getElementsByName("linewidthslider")[0];
+    inputSlider.addEventListener('input', this.setLinewidthWithSlider.bind(this))
+    console.log(inputSlider.getAttribute("value"));
     this.resetOptionsButton();
+    // setFunctionSlider();
   }
 
   ngOnDestroy() {
@@ -202,6 +212,7 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.canvasWhiteboard.changeStrokeColor('#ffffff');
     this.canvasWhiteboard.changeFillColor('#ffffff');
     this.canvasWhiteboard.lineWidth = 20;
+    // set freehand
     this.canvasWhiteboard.selectShape(this._canvasWhiteboardShapeService.getCurrentRegisteredShapes()[0]);
   }
 
@@ -211,6 +222,13 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.canvasWhiteboard.lineWidth = 2;
     // set freehand
     this.canvasWhiteboard.selectShape(this._canvasWhiteboardShapeService.getCurrentRegisteredShapes()[0]);
+  }
+
+  setLinewidthWithSlider() {
+    setFunctionSlider();
+    var inputSlider: Element = document.getElementsByName("linewidthslider")[0];
+    this.canvasWhiteboard.lineWidth = parseInt(inputSlider.getAttribute("value"), 10); 
+    console.log(inputSlider.getAttribute("value"));
   }
 
   printDebugInfo() {
