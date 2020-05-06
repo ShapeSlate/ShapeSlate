@@ -32,12 +32,6 @@ export class MessageBoxComponent {
     }, this.errorCallBack);
   }
 
-      // this.stompClient.connect({}, function (frame) {
-    //     // Send data to the server.
-    //     this.stompClient.subscribe('/topic/chatlog', function (outputMessage) {
-    //         this.displayReceivedMessage(JSON.parse(outputMessage.body).receivedTextMessage);
-    //     });
-    // });
 
   sendUserMessage(event) {
     // Removes the last newline character that is added by the enter.
@@ -70,29 +64,5 @@ export class MessageBoxComponent {
   ngAfterViewInit(): void {
     this.connect();
   }
-
-  //   sendUserMessage(stompClient) {
-  //     stompClient.send("/app/hello", {}, JSON.stringify({'userTypedTextMessage': $("[name=textareamessage]").val()}));
-  // }
-
-
-
-
-
-
-  // keyDownFunction(event) {
-  //   if(event.keyCode == 13) {
-  //     console.log('you just clicked enter');
-  //     // rest of your code
-  //   }
-  // }
-
-  // ngOnInit(): void {
-
-  //   window.onload: () => 
-  // }
-
-
-
 
 }
