@@ -39,9 +39,6 @@ export class MessageBoxComponent {
     console.log(this.message);
     this.stompClient.send("/app/hello", {}, JSON.stringify({ 'userTypedTextMessage': this.message.typedtext }));
     this.message.typedtext = "";
-    document.getElementById("chatlog").scrollIntoView(true);
-    
-    // $("#chatlog")
   }
 
   // on error, schedule a reconnection attempt
@@ -59,6 +56,7 @@ export class MessageBoxComponent {
   displayReceivedMessage(message) {
     console.log(message);
     $("#chatlog").append("<tr><td>" + message + "</td></tr>");
+    document.getElementById("chatlog").scrollIntoView(false);
   }
 
   _disconnect() {
@@ -67,6 +65,7 @@ export class MessageBoxComponent {
     }
     console.log("Disconnected");
 }
+
 
   ngAfterViewInit(): void {
     this.connect();
