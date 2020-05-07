@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Message } from '../message';
 import EmojiPicker from "vanilla-emoji-picker";
 import * as $ from 'jquery';
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
+import { Message } from '../_models/message';
 new EmojiPicker();
 
 @Component({
@@ -57,13 +57,23 @@ export class MessageBoxComponent {
   }
 
   displayReceivedMessage(message) {
+    console.log(message);
     $("#chatlog").append("<tr><td>" + message + "</td></tr>");
   }
 
-
+  _disconnect() {
+    if (this.stompClient !== null) {
+        this.stompClient.disconnect();
+    }
+    console.log("Disconnected");
+}
 
   ngAfterViewInit(): void {
     this.connect();
+  }
+
+  ngOnDestroy() {
+    this._disconnect();
   }
 
 }
