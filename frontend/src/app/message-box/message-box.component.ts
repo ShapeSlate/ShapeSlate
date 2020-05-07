@@ -39,8 +39,9 @@ export class MessageBoxComponent {
     console.log(this.message);
     this.stompClient.send("/app/hello", {}, JSON.stringify({ 'userTypedTextMessage': this.message.typedtext }));
     this.message.typedtext = "";
-
-
+    document.getElementById("chatlog").scrollIntoView(true);
+    
+    // $("#chatlog")
   }
 
   // on error, schedule a reconnection attempt
