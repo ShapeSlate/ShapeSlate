@@ -51,7 +51,6 @@ public class BoardController {
             canvasWhiteboardUpdateService.saveAll(theUpdates);
         }
 //        System.out.println(myBoard.get(0).getCanvasWhiteboardUpdates());
-
         return (List<Board>) boardService.saveAll(myBoard);
     }
 

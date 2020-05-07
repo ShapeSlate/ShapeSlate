@@ -1,21 +1,26 @@
-<canvas-whiteboard #canvasWhiteboard 
-    [drawButtonClass]="'drawButtonClass'" 
+<canvas-whiteboard #canvasWhiteboard
+    [drawButtonClass]="'drawButtonClass'"
     [drawButtonText]="'Draw'"
     [drawingEnabled]="true"
-    [clearButtonClass]="'clearButtonClass'" 
+    [clearButtonClass]="'clearButtonClass'"
     [clearButtonText]="'Clear'"
-    [undoButtonText]="'Undo'"
-    [undoButtonEnabled]="true" 
-    [redoButtonText]="'Redo'" 
-    [redoButtonEnabled]="true" 
     [colorPickerEnabled]="true"
-    [downloadedFileName]="'examplefileName'" 
-    (onBatchUpdate)="sendBatchUpdate($event)" 
-    (onClear)="onCanvasClear()"
-    (onUndo)="onCanvasUndo($event)" 
-    (onRedo)="onCanvasRedo($event)">
+    [downloadedFileName]="'examplefileName'"
+    (onBatchUpdate)="sendBatchUpdate($event)"
+    (onClear)="onCanvasClear()">
 </canvas-whiteboard>
 <br>
+
+<!--<div class="one"></div>-->
+<!-- <button (click)="drawDatabaseUpdates()">drawDatabaseUpdate</button> -->
+<!--
+<br>
+<button (click)="testButton()">testButton</button>
+
+<div>
+    {{currentBoard | json}}
+</div>
+-->
 
 <app-user></app-user>
 <app-slateroom></app-slateroom>
