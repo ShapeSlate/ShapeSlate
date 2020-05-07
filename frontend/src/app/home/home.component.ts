@@ -10,8 +10,6 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   user: User;
-  // TODO place at an init;
-  
 
   constructor(private accountService: AccountService) {
         this.user = this.accountService.userValue;
