@@ -93,19 +93,19 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
               if (allCorrect) {
                 var sendUpdates: CanvasWhiteboardUpdate[] = [];
                 var finishedUpdatesSlice: CanvasWhiteboardUpdate[] = cleanUpdates.slice(0, endIndexes[endIndexes.length - 1]);
+
+                // sendUpdates = finishedUpdatesSlice;
+
                 // add only if not drawn yet.
                 finishedUpdatesSlice.forEach(childUpdate => {
                   if (!this.drawnUpdates.some((parentUpdate) => (
-                    childUpdate.UUID == parentUpdate.UUID &&
-                    childUpdate.x == parentUpdate.x &&
-                    childUpdate.y == parentUpdate.y &&
-                    childUpdate.selectedShape == parentUpdate.selectedShape &&
-                    childUpdate.type == parentUpdate.type
+                    childUpdate.UUID == parentUpdate.UUID
                   ))) {
                     sendUpdates.push(childUpdate);
                   }
                 })
                 if (sendUpdates.length > 0) {
+                  // this.canvasWhiteboard.clearCanvas();
                   this.sendUpdates = sendUpdates;
                   this.drawPerUUID(this.sendUpdates)
                   this.drawnUpdates.push(...this.sendUpdates)
