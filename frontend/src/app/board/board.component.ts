@@ -162,6 +162,7 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   drawPerUUID(updates: CanvasWhiteboardUpdate[]) {
     // this assumes the updates are in correct order!
+    // updates NEED a type 2 terminator (otherwise history goed haywire.)
     var updateSet: CanvasWhiteboardUpdate[] = [];
     updates.forEach(element => {
       updateSet.push(element)
