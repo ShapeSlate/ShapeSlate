@@ -17,7 +17,7 @@ public class SlateRoomController {
 
     @PostMapping("/enter")
     public HttpStatus enter(@RequestBody SlateRoom slateRoom) {
-        if(slateRoomService.findByName(slateRoom.getName()) != null){
+        if(slateRoomService.findByRoomname(slateRoom.getRoomname()) != null){
             return HttpStatus.OK;
         }
         else {

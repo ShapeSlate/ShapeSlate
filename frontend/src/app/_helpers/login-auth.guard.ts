@@ -12,7 +12,6 @@ export class LoginAuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const user = this.accountService.userValue;
-        console.log(user)
         if (user) {
             // authorised so return true
             return true;

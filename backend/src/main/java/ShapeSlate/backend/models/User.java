@@ -12,7 +12,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @NotNull
-    String name;
+    String username;
     @NotNull
     String password;
 
@@ -24,9 +24,9 @@ public class User {
     public User() {
     }
 
-    public User(int id, @NotNull String name, @NotNull String password, List<SlateRoomHasUser> slateRoomHasUsers) {
+    public User(int id, @NotNull String username, @NotNull String password, List<SlateRoomHasUser> slateRoomHasUsers) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.password = password;
         this.slateRoomHasUsers = slateRoomHasUsers;
     }
@@ -47,12 +47,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -67,7 +67,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", slateRoomHasUsers=" + slateRoomHasUsers +
                 '}';

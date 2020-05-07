@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SlateRoomService extends CrudRepository<SlateRoom, Integer> {
-    public SlateRoom findByName(String name);
+    public SlateRoom findByRoomname(String roomname);
 }

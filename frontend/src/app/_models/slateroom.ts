@@ -1,4 +1,4 @@
 export class SlateRoom {
-    name: string;
+    roomname: string;
     id: number;
 }
