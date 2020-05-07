@@ -79,6 +79,9 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public Board BoardById(@PathVariable int id) {
+        // BUG (probably); early termination of updateset when multiple people are drawing.
+        // Too sad too bad that ng2-canvas-whiteboard NEEDS type 2 at the end of a changeset...
+
         Board myBoard = boardService.findById(id).orElse(null);
         if (myBoard != null) {
             List<CanvasWhiteboardUpdate> myUpdates = myBoard.getCanvasWhiteboardUpdates();
