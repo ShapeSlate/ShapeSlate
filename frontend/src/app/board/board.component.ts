@@ -6,6 +6,7 @@ import { Board } from '../_models';
 import * as EmojiPicker from "vanilla-emoji-picker";
 
 declare function setFunctionSlider(): void;
+declare function setSliderValue(myvalue): void;
 
 @Component({
   selector: 'app-board',
@@ -213,7 +214,7 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
   eraser() {
     this.canvasWhiteboard.changeStrokeColor('#ffffff');
     this.canvasWhiteboard.changeFillColor('#ffffff');
-    this.canvasWhiteboard.lineWidth = 20;
+    this.setCanvasWhiteboardLineWidth(20);
     // set freehand
     this.canvasWhiteboard.selectShape(this._canvasWhiteboardShapeService.getCurrentRegisteredShapes()[0]);
   }
@@ -221,7 +222,7 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
   resetOptionsButton() {
     this.canvasWhiteboard.changeStrokeColor('#000000');
     this.canvasWhiteboard.changeFillColor('#ffffff');
-    this.canvasWhiteboard.lineWidth = 2;
+    this.setCanvasWhiteboardLineWidth(2);
     // set freehand
     this.canvasWhiteboard.selectShape(this._canvasWhiteboardShapeService.getCurrentRegisteredShapes()[0]);
   }
@@ -257,5 +258,10 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   testConsoleFucntion() {
     console.log("test")
+  }
+
+  setCanvasWhiteboardLineWidth(width: number) {
+    this.canvasWhiteboard.lineWidth = width;
+    setSliderValue(width);
   }
 }
