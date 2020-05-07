@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CanvasWhiteboardUpdate, CanvasWhiteboardShapeOptions, CanvasWhiteboardShapeSelectorComponent, CanvasWhiteboardShapeService, CanvasWhiteboardService} from 'ng2-canvas-whiteboard';
 import { CanvasWhiteboardComponent } from 'ng2-canvas-whiteboard';
-import { BoardService } from '../board.service';
-import { Board } from '../board';
+import { BoardService } from '../_services';
+import { Board } from '../_models';
+import * as EmojiPicker from "vanilla-emoji-picker";
 
 declare function setFunctionSlider(): void;
 
@@ -137,6 +138,7 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    new EmojiPicker;
     setInterval(() => {
       // console.log("interval")
       // this.printDebugInfo()

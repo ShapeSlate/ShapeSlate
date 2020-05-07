@@ -1,6 +1,7 @@
 package ShapeSlate.backend.controllers;
 
 import ShapeSlate.backend.models.SlateRoom;
+import ShapeSlate.backend.models.User;
 import ShapeSlate.backend.services.SlateRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +16,21 @@ public class SlateRoomController {
     @Autowired private SlateRoomService slateRoomService;
 
     @PostMapping("/slateroom")
+    public HttpStatus enter(@RequestBody SlateRoom slateRoom) {
+        if(slateRoomService.findByName(slateRoom.getName()) != null){
+            return HttpStatus.OK;
+        }
+        else {
+            return HttpStatus.I_AM_A_TEAPOT;
+        }
+    }
+
+    @PostMapping("/create")
     public SlateRoom create(@RequestBody SlateRoom slateRoom) {
         return slateRoomService.save(slateRoom);
     }
 
-    @PutMapping("/slateroom")
+    @PutMapping("/create")
     public SlateRoom update(@RequestBody SlateRoom slateRoom) {
         return slateRoomService.save(slateRoom);
     }
