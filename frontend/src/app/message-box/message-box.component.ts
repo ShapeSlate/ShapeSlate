@@ -18,7 +18,6 @@ export class MessageBoxComponent {
   stompClient: any;
   message = new Message;
 
-
   constructor() { }
 
   connect() {
@@ -39,8 +38,6 @@ export class MessageBoxComponent {
     console.log(this.message);
     this.stompClient.send("/app/hello", {}, JSON.stringify({ 'userTypedTextMessage': this.message.typedtext }));
     this.message.typedtext = "";
-
-
   }
 
   // on error, schedule a reconnection attempt
@@ -58,8 +55,6 @@ export class MessageBoxComponent {
   displayReceivedMessage(message) {
     $("#chatlog").append("<tr><td>" + message + "</td></tr>");
   }
-
-
 
   ngAfterViewInit(): void {
     this.connect();
