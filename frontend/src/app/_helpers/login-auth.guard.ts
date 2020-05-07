@@ -12,8 +12,10 @@ export class LoginAuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const user = this.accountService.userValue;
+        console.log(user)
         if (user) {
             // authorised so return true
+            //this.router.navigate(['/room/enter'], { queryParams: { returnUrl: state.url }});
             return true;
         }
         // not logged in so redirect to login page with the return url
