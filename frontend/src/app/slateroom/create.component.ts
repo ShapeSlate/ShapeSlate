@@ -21,7 +21,7 @@ export class CreateComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            roomName: ['', Validators.required]
+            name: ['', Validators.required]
         });
     }
 

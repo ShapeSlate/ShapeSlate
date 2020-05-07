@@ -16,7 +16,7 @@ export class RoomAuthGuard implements CanActivate {
             // authorised so return true
             return true;
         }
-        // not logged in so redirect to login page with the return url
+        // not logged in so redirect to enter page with the return url
         this.router.navigate(['/room/enter'], { queryParams: { returnUrl: state.url }});
         return false;
     }

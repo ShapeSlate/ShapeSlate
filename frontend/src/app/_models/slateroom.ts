@@ -1,5 +1,4 @@
 export class SlateRoom {
-    roomName: string;
-    idSession: number;
-    idUser: number;
+    name: string;
+    id: number;
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 public class SlateRoomController {
     @Autowired private SlateRoomService slateRoomService;
 
-    @PostMapping("/slateroom")
+    @PostMapping("/enter")
     public HttpStatus enter(@RequestBody SlateRoom slateRoom) {
         if(slateRoomService.findByName(slateRoom.getName()) != null){
             return HttpStatus.OK;

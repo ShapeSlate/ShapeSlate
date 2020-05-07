@@ -22,7 +22,7 @@ export class EnterComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            roomName: ['', Validators.required]
+            name: ['', Validators.required]
         });
 
         // get return url from route parameters or default to '/'
@@ -44,7 +44,7 @@ export class EnterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.roomService.enter(this.f.roomName.value)
+        this.roomService.enter(this.f.name.value)
             .pipe(first())
             .subscribe(
                 data => {

@@ -24,8 +24,8 @@ export class RoomService {
         return this.roomSubject.value;
     }
 
-    enter(roomName) {
-        return this.http.post<SlateRoom>(`${environment.apiUrl}/room/authenticate`, { roomName })
+    enter(name) {
+        return this.http.post<SlateRoom>(`${environment.apiUrl}/enter`, { name })
             .pipe(map(room => {
                 // store room details and jwt token in local storage to keep room entered between page refreshes
                 localStorage.setItem('room', JSON.stringify(room));
@@ -42,7 +42,7 @@ export class RoomService {
     }
 
     create(room: SlateRoom) {
-        return this.http.post(`${environment.apiUrl}/room/create`, room);
+        return this.http.post(`${environment.apiUrl}/create`, room);
     }
 
     getAll() {
@@ -57,7 +57,7 @@ export class RoomService {
         return this.http.put(`${environment.apiUrl}/room/${id}`, params)
             .pipe(map(x => {
                 // update stored room if the logged in user updated their own record
-                if (id == this.roomValue.idSession) {
+                if (id == this.roomValue.id) {
                     // update local storage
                     const room = { ...this.roomValue, ...params };
                     localStorage.setItem('room', JSON.stringify(room));
@@ -73,7 +73,7 @@ export class RoomService {
         return this.http.delete(`${environment.apiUrl}/room/${id}`)
             .pipe(map(x => {
                 // auto logout if the logged in room deleted their own record
-                if (id == this.roomValue.idSession) {
+                if (id == this.roomValue.id) {
                     this.exit();
                 }
                 return x;
