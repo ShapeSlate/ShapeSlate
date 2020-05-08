@@ -14,10 +14,16 @@ export class RoomAuthGuard implements CanActivate {
         const room = this.roomService.roomValue;
         if (room) {
             // authorised so return true
+            this.setRoomText()
             return true;
         }
         // not logged in so redirect to enter page with the return url
         this.router.navigate(['/room/enter'], { queryParams: { returnUrl: state.url }});
         return false;
+    }
+
+    setRoomText(){
+        document.getElementById("roomdID").innerHTML = "Room: " + this.roomService.roomValue.roomname;
+        // document.write(this.roomService.roomValue.roomname);
     }
 }
