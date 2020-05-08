@@ -12,7 +12,7 @@ public class SlateRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @NotNull
-    String name;
+    String roomname;
 
     // many slaterooms can have many slaterooms (junction table uses class SlateRoomHasUser)
     @JsonManagedReference(value = "slateroom")
@@ -26,9 +26,9 @@ public class SlateRoom {
     public SlateRoom() {
     }
 
-    public SlateRoom(int id, @NotNull String name, List<SlateRoomHasUser> slateRoomHasUsers, List<Board> boards) {
+    public SlateRoom(int id, @NotNull String roomname, List<SlateRoomHasUser> slateRoomHasUsers, List<Board> boards) {
         this.id = id;
-        this.name = name;
+        this.roomname = roomname;
         this.slateRoomHasUsers = slateRoomHasUsers;
         this.boards = boards;
     }
@@ -57,11 +57,11 @@ public class SlateRoom {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRoomname() {
+        return roomname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoomname(String roomname) {
+        this.roomname = roomname;
     }
 }

@@ -2,8 +2,10 @@ package ShapeSlate.backend.controllers;
 
 import ShapeSlate.backend.models.User;
 import ShapeSlate.backend.services.UserService;
+import jdk.nashorn.internal.objects.NativeJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,18 +21,18 @@ public class UserController {
     @Autowired private UserService userService;
 
     @PostMapping("/login")
-    public HttpStatus login(@RequestBody User user) {
-        User myUser = userService.findByName(user.getName());
+    public ResponseEntity login(@RequestBody User user) {
+        User myUser = userService.findByUsername(user.getUsername());
         if(myUser != null) {
             if(myUser.getPassword().equals(user.getPassword())){
-                return HttpStatus.OK;
+                return new ResponseEntity(user, HttpStatus.OK);
             }
             else {
-                return HttpStatus.I_AM_A_TEAPOT;
+                return new ResponseEntity(HttpStatus.UNAUTHORIZED);
             }
         }
         else {
-            return HttpStatus.BAD_REQUEST;
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
 

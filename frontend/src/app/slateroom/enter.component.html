@@ -3,10 +3,10 @@
     <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group">
-                <label for="room name">Room Name</label>
-                <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                    <div *ngIf="f.name.errors.required">Room name is required</div>
+                <label for="room roomname">Room Name</label>
+                <input type="text" formControlName="roomname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.roomname.errors }" />
+                <div *ngIf="submitted && f.roomname.errors" class="invalid-feedback">
+                    <div *ngIf="f.roomname.errors.required">Room name is required</div>
                 </div>
             </div>
             <div class="form-group">

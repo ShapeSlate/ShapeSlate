@@ -24,8 +24,8 @@ export class RoomService {
         return this.roomSubject.value;
     }
 
-    enter(name) {
-        return this.http.post<SlateRoom>(`${environment.apiUrl}/enter`, { name })
+    enter(roomname) {
+        return this.http.post<SlateRoom>(`${environment.apiUrl}/enter`, { roomname })
             .pipe(map(room => {
                 // store room details and jwt token in local storage to keep room entered between page refreshes
                 localStorage.setItem('room', JSON.stringify(room));

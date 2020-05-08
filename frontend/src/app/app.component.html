@@ -17,6 +17,7 @@
         <div class="navbar-nav">
           <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
           <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+          <a class="nav-item nav-link" (click)="exit()">Exit Room</a>
           <a class="nav-item nav-link" (click)="logout()">Logout</a>
       </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
