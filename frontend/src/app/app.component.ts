@@ -18,7 +18,12 @@ export class AppComponent {
     }
     
     logout() {
-        this.accountService.logout();
-        this.roomService.exit();
+        if (this.roomService.roomValue != null){
+            this.roomService.exit();
+            this.accountService.logout();
+        }
+        else {
+            this.accountService.logout();
+        }
     }
 }

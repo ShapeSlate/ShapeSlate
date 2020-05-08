@@ -61,7 +61,7 @@ export class MessageBoxComponent {
     // if
     // class="table-active" for active user otherwise
     var date = new Date();
-    $("#chatlog").append("<tr><td>" + this.accountService.userValue + ":<br>" + message + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
+    $("#chatlog").append("<tr><td>" + this.accountService.userValue.username + ":<br>" + message + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
     document.getElementById("chatlog").scrollIntoView(false);
   }
 
