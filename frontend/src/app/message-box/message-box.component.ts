@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { Message } from '../_models/message';
+import { AccountService } from '../_services';
 new EmojiPicker();
 
 @Component({
@@ -19,13 +20,15 @@ export class MessageBoxComponent {
   message = new Message;
 
 
-  constructor() { }
+  constructor(
+    private accountService: AccountService
+  ) { }
 
   connect() {
     let socket = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(socket);
     const _this = this;
-    _this.stompClient.connect({}, function (frame){
+    _this.stompClient.connect({}, function (frame) {
       _this.stompClient.subscribe(_this.topic, function (outputMessage) {
         _this.displayReceivedMessage(JSON.parse(outputMessage.body).receivedTextMessage);
       });
@@ -39,8 +42,6 @@ export class MessageBoxComponent {
     console.log(this.message);
     this.stompClient.send("/app/hello", {}, JSON.stringify({ 'userTypedTextMessage': this.message.typedtext }));
     this.message.typedtext = "";
-
-
   }
 
   // on error, schedule a reconnection attempt
@@ -57,15 +58,20 @@ export class MessageBoxComponent {
 
   displayReceivedMessage(message) {
     console.log(message);
-    $("#chatlog").append("<tr><td>" + message + "</td></tr>");
+    // if
+    // class="table-active" for active user otherwise
+    var date = new Date();
+    $("#chatlog").append("<tr><td>" + this.accountService.userValue + ":<br>" + message + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
+    document.getElementById("chatlog").scrollIntoView(false);
   }
 
   _disconnect() {
     if (this.stompClient !== null) {
-        this.stompClient.disconnect();
+      this.stompClient.disconnect();
     }
     console.log("Disconnected");
-}
+  }
+
 
   ngAfterViewInit(): void {
     this.connect();
