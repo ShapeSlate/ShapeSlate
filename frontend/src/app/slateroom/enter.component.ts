@@ -51,7 +51,7 @@ export class EnterComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error("Room name is incorrect.");
                     this.loading = false;
                 });
     }

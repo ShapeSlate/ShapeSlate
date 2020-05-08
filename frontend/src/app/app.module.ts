@@ -10,7 +10,6 @@ import { MessageBoxComponent } from './message-box/message-box.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertComponent } from './_components';
-import { ErrorInterceptor } from './_helpers';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,7 @@ import { ErrorInterceptor } from './_helpers';
     ReactiveFormsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
