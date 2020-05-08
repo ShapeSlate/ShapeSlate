@@ -60,11 +60,8 @@ export class MessageBoxComponent {
     console.log(message);
     // if
     // class="table-active" for active user otherwise
-
-    $("#chatlog").append("<tr><td>" + this.accountService.userValue + ":<br>" + message + "<br><sub>" + new Date().toISOString().replace(/T/," ").replace(/\..*/,"") + "</sub>" + "</td></tr>");
-     new Date().toISOString().replace("/Z|T/g"," ")
-    // new Date().toString().replace(/GMT.*/g, "")
-    // Fri May 08 2020 11:50:43
+    var date = new Date();
+    $("#chatlog").append("<tr><td>" + this.accountService.userValue + ":<br>" + message + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
     document.getElementById("chatlog").scrollIntoView(false);
   }
 
