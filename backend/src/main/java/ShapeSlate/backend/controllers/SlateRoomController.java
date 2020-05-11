@@ -26,27 +26,31 @@ public class SlateRoomController {
 
     @PostMapping("/create")
     public SlateRoom create(@RequestBody SlateRoom slateRoom) {
-        return slateRoomService.save(slateRoom);
+        if(slateRoomService.findByRoomname(slateRoom.getRoomname()) == null) {
+            return slateRoomService.save(slateRoom);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
-    @PutMapping("/create")
-    public SlateRoom update(@RequestBody SlateRoom slateRoom) {
-        return slateRoomService.save(slateRoom);
-    }
-
-    @ResponseStatus(value = HttpStatus.OK)
-    @DeleteMapping("/slateroom/{id}")
-    public void delete(@PathVariable int id) {
-        slateRoomService.deleteById(id);
-    }
-
-    @GetMapping("/slateroom")
-    public List<SlateRoom> findAll() {
-        return (List<SlateRoom>) slateRoomService.findAll();
-    }
-
-    @GetMapping("/slateroom/{id}")
-    public Optional<SlateRoom> SessionById(@PathVariable int id) {
-        return slateRoomService.findById(id);
-    }
+//    @PutMapping("/create")
+//    public SlateRoom update(@RequestBody SlateRoom slateRoom) {
+//        return slateRoomService.save(slateRoom);
+//    }
+//
+//    @ResponseStatus(value = HttpStatus.OK)
+//    @DeleteMapping("/slateroom/{id}")
+//    public void delete(@PathVariable int id) {
+//        slateRoomService.deleteById(id);
+//    }
+//
+//    @GetMapping("/slateroom")
+//    public List<SlateRoom> findAll() {
+//        return (List<SlateRoom>) slateRoomService.findAll();
+//    }
+//
+//    @GetMapping("/slateroom/{id}")
+//    public Optional<SlateRoom> SessionById(@PathVariable int id) {
+//        return slateRoomService.findById(id);
+//    }
 }

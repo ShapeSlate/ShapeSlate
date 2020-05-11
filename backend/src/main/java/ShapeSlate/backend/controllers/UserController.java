@@ -38,28 +38,31 @@ public class UserController {
 
     @PostMapping("/register")
     public User register(@RequestBody User user) {
-        System.out.println(user);
-        return userService.save(user);
+        if (userService.findByUsername(user.getUsername()) == null){
+            return userService.save(user);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
-    @PutMapping("/account")
-    public User update(@RequestBody User user) {
-        return userService.save(user);
-    }
-
-    @ResponseStatus(value = HttpStatus.OK)
-    @DeleteMapping("/account/{id}")
-    public void delete(@PathVariable int id) {
-        userService.deleteById(id);
-    }
-
-    @GetMapping("/account")
-    public List<User> findAll() {
-        return (List<User>)userService.findAll();
-    }
-
-    @GetMapping("/account/{id}")
-    public Optional<User> UserById(@PathVariable int id) {
-        return userService.findById(id);
-    }
+//    @PutMapping("/account")
+//    public User update(@RequestBody User user) {
+//        return userService.save(user);
+//    }
+//
+//    @ResponseStatus(value = HttpStatus.OK)
+//    @DeleteMapping("/account/{id}")
+//    public void delete(@PathVariable int id) {
+//        userService.deleteById(id);
+//    }
+//
+//    @GetMapping("/account")
+//    public List<User> findAll() {
+//        return (List<User>)userService.findAll();
+//    }
+//
+//    @GetMapping("/account/{id}")
+//    public Optional<User> UserById(@PathVariable int id) {
+//        return userService.findById(id);
+//    }
 }
