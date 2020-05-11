@@ -5,7 +5,7 @@
 }
 
 .col-sm-9{
-    height:94vh;
+    /* height:94vh; */
     position:fixed;
 }
 
@@ -19,6 +19,7 @@
 }
 
 textarea{
+    border:0px;
     border-radius: 0px;
     min-width:24.9vw;
     max-width:inherit;

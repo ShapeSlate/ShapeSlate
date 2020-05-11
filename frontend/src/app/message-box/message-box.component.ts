@@ -5,6 +5,7 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { Message } from '../_models/message';
 import { AccountService } from '../_services';
+import { strict } from 'assert';
 new EmojiPicker();
 
 @Component({
@@ -40,7 +41,9 @@ export class MessageBoxComponent {
     // Removes the last newline character that is added by the enter.
     this.message.typedtext = this.message.typedtext.slice(0, this.message.typedtext.length - 1);
     console.log(this.message);
-    this.stompClient.send("/app/hello", {}, JSON.stringify({ 'userTypedTextMessage': this.message.typedtext }));
+    if(this.message.typedtext.replace(/\s|\n/g,"").length){
+      this.stompClient.send("/app/hello", {}, JSON.stringify({ 'userTypedTextMessage': this.accountService.userValue.username+"!!!iamanevilsolution!!!"+this.message.typedtext }));
+    }
     this.message.typedtext = "";
   }
 
@@ -57,12 +60,16 @@ export class MessageBoxComponent {
   }
 
   displayReceivedMessage(message) {
-    console.log(message);
-    // if
-    // class="table-active" for active user otherwise
+    var hostAndMessage =  message.split("!!!iamanevilsolution!!!");
     var date = new Date();
-    $("#chatlog").append("<tr><td>" + this.accountService.userValue.username + ":<br>" + message + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
+    if(hostAndMessage[0] === this.accountService.userValue.username){
+      $("#chatlog").append("<tr class=\"table-active\"><td>" + "<sub>" + hostAndMessage[0] + "</sub><br>" + hostAndMessage[1] + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
+    } else{
+      $("#chatlog").append("<tr class=\"table-light\"><td>" + "<sub>" + hostAndMessage[0] + "</sub><br>" + hostAndMessage[1] + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
+    }
+   
     document.getElementById("chatlog").scrollIntoView(false);
+
   }
 
   _disconnect() {

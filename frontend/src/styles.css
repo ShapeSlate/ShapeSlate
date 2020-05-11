@@ -2,7 +2,7 @@
 
 canvas-whiteboard {
     display: block;
-    height: 50vh;
+    /* height: inherit; */
 }
 
 .slider {
@@ -33,4 +33,14 @@ canvas-whiteboard {
     border-radius: 50%;
     background: #4CAF50;
     cursor: pointer;
+  }
+
+  #navbar-image{
+    width:35px;
+    height:35px;
+    border-radius: 50%;
+  }
+
+  .navbar-brand{
+    padding-left: 10px;
   }
