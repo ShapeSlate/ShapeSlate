@@ -63,9 +63,9 @@ export class MessageBoxComponent {
     var hostAndMessage =  message.split("!!!iamanevilsolution!!!");
     var date = new Date();
     if(hostAndMessage[0] === this.accountService.userValue.username){
-      $("#chatlog").append("<tr class=\"table-active\"><td>" + "<sub>" + hostAndMessage[0] + "</sub><br>" + hostAndMessage[1] + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
+      $("#chatlog").append("<tr class=\"table-active\"><td>" + "<sub>" + hostAndMessage[0] + "<:/sub><br>" + hostAndMessage[1] + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
     } else{
-      $("#chatlog").append("<tr class=\"table-light\"><td>" + "<sub>" + hostAndMessage[0] + "</sub><br>" + hostAndMessage[1] + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
+      $("#chatlog").append("<tr class=\"table-light\"><td>" + "<sub>" + hostAndMessage[0] + "<:/sub><br>" + hostAndMessage[1] + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
     }
    
     document.getElementById("chatlog").scrollIntoView(false);
