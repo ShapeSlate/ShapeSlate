@@ -48,7 +48,7 @@ export class CreateComponent implements OnInit {
                     this.router.navigate(['../enter'], { relativeTo: this.route });
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error("A room has already been created under this name.");
                     this.loading = false;
                 });
     }
