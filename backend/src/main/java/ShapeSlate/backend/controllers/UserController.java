@@ -38,8 +38,11 @@ public class UserController {
 
     @PostMapping("/register")
     public User register(@RequestBody User user) {
-        System.out.println(user);
-        return userService.save(user);
+        if (userService.findByUsername(user.getUsername()) == null){
+            return userService.save(user);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     @PutMapping("/account")
