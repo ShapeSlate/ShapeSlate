@@ -12,7 +12,7 @@
     <title>ShapeSlate</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-ligh p-0" *ngIf="user">
+    <nav class="navbar navbar-expand-lg navbar-light bg-ligh p-0" *ngIf="slateUser">
         <a class="navbar-brand" href="#">ShapeSlate</a>
         <div class="navbar-nav">
           <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
@@ -47,7 +47,7 @@
             </form>
         </div>
     </nav>
-    <div class="app-container" [ngClass]="{ 'bg-light': user }">
+    <div class="app-container" [ngClass]="{ 'bg-light': slateUser }">
       <alert></alert>
       <router-outlet></router-outlet>
     </div>

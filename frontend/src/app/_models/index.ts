@@ -1,4 +1,4 @@
 export * from './alert';
 export * from './board';
 export * from './slateroom';
-export * from './user';
+export * from './slateuser';

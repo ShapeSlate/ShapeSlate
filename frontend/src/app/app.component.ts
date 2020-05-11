@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 
 import { AccountService } from './_services';
-import { User } from './_models';
+import { SlateUser } from './_models';
 
 @Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent {
-    user: User;
+    slateUser: SlateUser;
 
     constructor(private accountService: AccountService) {
-        this.accountService.user.subscribe(x => this.user = x);
+        this.accountService.slateUser.subscribe(x => this.slateUser = x);
     }
 
     logout() {

@@ -11,11 +11,11 @@ export class LayoutComponent {
         private roomService: RoomService
     ) {
         // redirect to room if already logged in
-        if (this.accountService.userValue && !this.roomService.roomValue) {
+        if (this.accountService.slateUserValue && !this.roomService.roomValue) {
             this.router.navigate(['/room']);
         }
         // redirect to home if already logged in and entered room
-        if (this.accountService.userValue && this.roomService.roomValue) {
+        if (this.accountService.slateUserValue && this.roomService.roomValue) {
             this.router.navigate(['/']);
         }
     }

@@ -5,79 +5,78 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
-import { User } from '../_models';
+import { SlateUser } from '../_models';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-    private userSubject: BehaviorSubject<User>;
-    public user: Observable<User>;
+    private slateUserSubject: BehaviorSubject<SlateUser>;
+    public slateUser: Observable<SlateUser>;
 
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
-        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-        this.user = this.userSubject.asObservable();
+        this.slateUserSubject = new BehaviorSubject<SlateUser>(JSON.parse(localStorage.getItem('slateUser')));
+        this.slateUser = this.slateUserSubject.asObservable();
     }
 
-    public get userValue(): User {
-        return this.userSubject.value;
+    public get slateUserValue(): SlateUser {
+        return this.slateUserSubject.value;
     }
 
     login(name, password) {
-        return this.http.post<User>(`${environment.apiUrl}/login`, { name, password })
-            .pipe(map(user => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
-                return user;
+        return this.http.post<SlateUser>(`${environment.apiUrl}/login`, { name, password })
+            .pipe(map(slateUser => {
+                // store slateUser details and jwt token in local storage to keep slateUser logged in between page refreshes
+                localStorage.setItem('slateUser', JSON.stringify(slateUser));
+                this.slateUserSubject.next(slateUser);
+                return slateUser;
             }));
     }
 
     logout() {
-        // remove user from local storage and set current user to null
-        localStorage.removeItem('user');
-        this.userSubject.next(null);
+        // remove slateUser from local storage and set current slateUser to null
+        localStorage.removeItem('slateUser');
+        this.slateUserSubject.next(null);
         this.router.navigate(['/account/login']);
     }
 
-    register(user: User) {
-        console.log("huilen");
-        return this.http.post(`${environment.apiUrl}/register`, user);
+    register(slateUser: SlateUser) {
+        return this.http.post(`${environment.apiUrl}/register`, slateUser);
     }
 
-    getAll() {
-        return this.http.get<User[]>(`${environment.apiUrl}/users`);
-    }
+    // getAll() {
+    //     return this.http.get<SlateUser[]>(`${environment.apiUrl}/users`);
+    // }
 
-    getById(id: string) {
-        return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
-    }
+    // getById(id: string) {
+    //     return this.http.get<SlateUser>(`${environment.apiUrl}/users/${id}`);
+    // }
 
-    update(id, params) {
-        return this.http.put(`${environment.apiUrl}/users/${id}`, params)
-            .pipe(map(x => {
-                // update stored user if the logged in user updated their own record
-                if (id == this.userValue.id) {
-                    // update local storage
-                    const user = { ...this.userValue, ...params };
-                    localStorage.setItem('user', JSON.stringify(user));
+    // update(id, params) {
+    //     return this.http.put(`${environment.apiUrl}/users/${id}`, params)
+    //         .pipe(map(x => {
+    //             // update stored slateUser if the logged in slateUser updated their own record
+    //             if (id == this.userValue.id) {
+    //                 // update local storage
+    //                 const slateUser = { ...this.userValue, ...params };
+    //                 localStorage.setItem('slateUser', JSON.stringify(slateUser));
 
-                    // publish updated user to subscribers
-                    this.userSubject.next(user);
-                }
-                return x;
-            }));
-    }
+    //                 // publish updated slateUser to subscribers
+    //                 this.userSubject.next(slateUser);
+    //             }
+    //             return x;
+    //         }));
+    // }
 
-    delete(id: string) {
-        return this.http.delete(`${environment.apiUrl}/users/${id}`)
-            .pipe(map(x => {
-                // auto logout if the logged in user deleted their own record
-                if (id == this.userValue.id.toString()) {
-                    this.logout();
-                }
-                return x;
-            }));
-    }
+    // delete(id: string) {
+    //     return this.http.delete(`${environment.apiUrl}/users/${id}`)
+    //         .pipe(map(x => {
+    //             // auto logout if the logged in slateUser deleted their own record
+    //             if (id == this.userValue.id.toString()) {
+    //                 this.logout();
+    //             }
+    //             return x;
+    //         }));
+    // }
 }

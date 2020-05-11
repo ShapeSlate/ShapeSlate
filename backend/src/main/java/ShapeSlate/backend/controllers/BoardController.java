@@ -147,9 +147,6 @@ public class BoardController {
                         }
 
                     }
-
-
-
                 }
                 myBoard.setCanvasWhiteboardUpdates(mySortedUpdates);
             }

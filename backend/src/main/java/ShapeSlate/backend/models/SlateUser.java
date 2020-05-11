@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-public class User {
+public class SlateUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -17,14 +17,14 @@ public class User {
     String password;
 
     // many slaterooms can have many slaterooms (junction table uses class SlateRoomHasUser)
-    @JsonManagedReference(value = "user")
-    @OneToMany(mappedBy = "user")
+    @JsonManagedReference(value = "slateuser")
+    @OneToMany(mappedBy = "slateUser")
     List<SlateRoomHasUser> slateRoomHasUsers;
 
-    public User() {
+    public SlateUser() {
     }
 
-    public User(int id, @NotNull String name, @NotNull String password, List<SlateRoomHasUser> slateRoomHasUsers) {
+    public SlateUser(int id, @NotNull String name, @NotNull String password, List<SlateRoomHasUser> slateRoomHasUsers) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -65,7 +65,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "SlateUser{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +

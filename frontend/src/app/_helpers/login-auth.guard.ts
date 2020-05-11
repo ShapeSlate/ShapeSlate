@@ -11,9 +11,9 @@ export class LoginAuthGuard implements CanActivate {
     ) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const user = this.accountService.userValue;
-        console.log(user)
-        if (user) {
+        const slateUser = this.accountService.slateUserValue;
+        console.log(slateUser)
+        if (slateUser) {
             // authorised so return true
             //this.router.navigate(['/room/enter'], { queryParams: { returnUrl: state.url }});
             return true;

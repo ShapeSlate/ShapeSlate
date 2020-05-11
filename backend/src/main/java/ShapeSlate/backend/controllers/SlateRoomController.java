@@ -1,7 +1,6 @@
 package ShapeSlate.backend.controllers;
 
 import ShapeSlate.backend.models.SlateRoom;
-import ShapeSlate.backend.models.User;
 import ShapeSlate.backend.services.SlateRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

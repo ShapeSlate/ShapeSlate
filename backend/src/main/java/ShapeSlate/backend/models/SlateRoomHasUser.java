@@ -11,9 +11,9 @@ public class SlateRoomHasUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     // many slaterooms can have many slaterooms (junction table uses class SlateRoomHasUser)
-    @JsonBackReference(value = "user")
+    @JsonBackReference(value = "slateuser")
     @ManyToOne
-    User user;
+    SlateUser slateUser;
     @JsonBackReference(value = "slateroom")
     @ManyToOne
     SlateRoom slateRoom;
@@ -21,18 +21,18 @@ public class SlateRoomHasUser {
     public SlateRoomHasUser() {
     }
 
-    public SlateRoomHasUser(int id, @NotNull int sessionId, @NotNull int userId, User user, SlateRoom slateRoom) {
+    public SlateRoomHasUser(int id, @NotNull int sessionId, @NotNull int userId, SlateUser slateUser, SlateRoom slateRoom) {
         this.id = id;
-        this.user = user;
+        this.slateUser = slateUser;
         this.slateRoom = slateRoom;
     }
 
-    public User getUser() {
-        return user;
+    public SlateUser getSlateUser() {
+        return slateUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSlateUser(SlateUser slateUser) {
+        this.slateUser = slateUser;
     }
 
     public SlateRoom getSlateRoom() {
