@@ -44,13 +44,11 @@ public class BoardController {
             }
             canvasWhiteboardUpdateService.saveAll(theUpdates);
         }
-        System.out.println("I'm a happy bee and I'm saving the board!");
         return (List<Board>) boardService.saveAll(myBoard);
     }
 
     @PutMapping("/board")
     public Board update(@RequestBody Board board) {
-        System.out.println("I'm a happy bee and I'm updating the board!");
         return boardService.save(board);
     }
 
