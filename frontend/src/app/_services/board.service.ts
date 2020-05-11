@@ -11,14 +11,14 @@ export class BoardService {
   constructor(private http: HttpClient) { }
 
   save(board: Board) {
-    return this.http.post("http://localhost:8080/board", board)
+    return this.http.post("/board", board)
   }
   
   delete(id: number) {
-    return this.http.delete('http://localhost:8080/board/' + id)
+    return this.http.delete('/board/' + id)
   }
 
   find(id: number) {
-    return this.http.get<Board>('http://localhost:8080/board/' + id)
+    return this.http.get<Board>('/board/' + id)
   }
 }

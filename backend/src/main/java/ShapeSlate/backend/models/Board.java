@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Board {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     // many boards in one slateroom
     @JsonBackReference(value = "board")

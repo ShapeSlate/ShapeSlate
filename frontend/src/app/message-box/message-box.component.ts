@@ -13,6 +13,7 @@ import { Message } from '../_models/message';
 export class MessageBoxComponent implements OnDestroy, AfterViewInit {
 
   emojiPicker = new EmojiPicker();
+  // webSocketEndPoint: string = 'https://shapeslate-test.herokuapp.com/ws';
   webSocketEndPoint: string = 'http://localhost:8080/ws';
   topic: string = "/topic/chatlog";
   stompClient: any;

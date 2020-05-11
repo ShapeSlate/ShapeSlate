@@ -3,7 +3,6 @@ package ShapeSlate.backend.controllers;
 import ShapeSlate.backend.models.*;
 import ShapeSlate.backend.models.comparators.CanvasUpdateComparatorById;
 import ShapeSlate.backend.models.comparators.CanvasUpdateComparatorByType;
-import ShapeSlate.backend.models.comparators.CanvasUpdateComparatorByUUID;
 import ShapeSlate.backend.services.BoardService;
 import ShapeSlate.backend.services.CanvasWhiteboardShapeOptionsService;
 import ShapeSlate.backend.services.CanvasWhiteboardUpdateService;
