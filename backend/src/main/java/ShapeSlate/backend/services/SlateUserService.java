@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SlateUserService extends CrudRepository<SlateUser, Integer> {
-    public SlateUser findByName(String name);
+    public SlateUser findByUsername(String username);
 }

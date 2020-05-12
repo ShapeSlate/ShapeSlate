@@ -43,7 +43,7 @@ export class MessageBoxComponent implements OnDestroy, AfterViewInit {
     this.message.typedtext = this.message.typedtext.slice(0, this.message.typedtext.length - 1);
     console.log(this.message);
     if(this.message.typedtext.replace(/\s|\n/g,"").length){
-      this.stompClient.send("/app/hello", {}, JSON.stringify({ 'userTypedTextMessage': this.accountService.userValue.username+"!!!iamanevilsolution!!!"+this.message.typedtext }));
+      this.stompClient.send("/app/hello", {}, JSON.stringify({ 'userTypedTextMessage': this.accountService.slateUserValue.username+"!!!iamanevilsolution!!!"+this.message.typedtext }));
     }
     this.message.typedtext = "";
   }
@@ -63,7 +63,7 @@ export class MessageBoxComponent implements OnDestroy, AfterViewInit {
   displayReceivedMessage(message) {
     var hostAndMessage =  message.split("!!!iamanevilsolution!!!");
     var date = new Date();
-    if(hostAndMessage[0] === this.accountService.userValue.username){
+    if(hostAndMessage[0] === this.accountService.slateUserValue.username){
       $("#chatlog").append("<tr class=\"table-active\"><td>" + "<sub>" + hostAndMessage[0] + ":</sub><br>" + hostAndMessage[1] + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
     } else{
       $("#chatlog").append("<tr class=\"table-light\"><td>" + "<sub>" + hostAndMessage[0] + ":</sub><br>" + hostAndMessage[1] + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");

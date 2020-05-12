@@ -146,7 +146,6 @@ public class BoardController {
                             mySortedUpdates.addAll(changeSetInBetween);
                             mySortedUpdates.addAll(changeSetEnd);
                         }
-
                     }
                 }
                 myBoard.setCanvasWhiteboardUpdates(mySortedUpdates);

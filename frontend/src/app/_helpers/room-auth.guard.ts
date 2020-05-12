@@ -30,6 +30,6 @@ export class RoomAuthGuard implements CanActivate {
         // document.write(this.roomService.roomValue.roomname);
     }
     setUserText(){
-        document.getElementById("userID").innerHTML = this.accountService.userValue.username;
+        document.getElementById("userID").innerHTML = this.accountService.slateUserValue.username;
     }
 }
