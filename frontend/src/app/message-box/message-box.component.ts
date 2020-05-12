@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { Message } from '../_models/message';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-message-box',
@@ -13,8 +14,7 @@ import { Message } from '../_models/message';
 export class MessageBoxComponent implements OnDestroy, AfterViewInit {
 
   emojiPicker = new EmojiPicker();
-  // webSocketEndPoint: string = 'https://shapeslate-test.herokuapp.com/ws';
-  webSocketEndPoint: string = 'http://localhost:8080/ws';
+  webSocketEndPoint: string = `${environment.apiUrl}/ws`;
   topic: string = "/topic/chatlog";
   stompClient: any;
   message = new Message;
