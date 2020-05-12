@@ -20,8 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         StompWebSocketEndpointRegistration endpointRegistration = registry.addEndpoint("/ws");
-        endpointRegistration.setAllowedOrigins("http://shapeslate-test.herokuapp.com").withSockJS();
-        endpointRegistration.setAllowedOrigins("https://shapeslate-test.herokuapp.com").withSockJS();
+        endpointRegistration.setAllowedOrigins("http://shapeslate.herokuapp.com").withSockJS();
         endpointRegistration.setAllowedOrigins("http://localhost:4200").withSockJS();
     }
 }

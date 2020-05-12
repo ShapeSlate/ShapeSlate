@@ -4,6 +4,7 @@ import { CanvasWhiteboardComponent } from 'ng2-canvas-whiteboard';
 import { BoardService } from '../_services';
 import { Board } from '../_models';
 import * as EmojiPicker from "vanilla-emoji-picker";
+import { RoomService } from '../_services';
 
 declare function setFunctionSlider(): void;
 declare function setSliderValue(myValue): void;
@@ -16,15 +17,10 @@ declare function setSliderValue(myValue): void;
 })
 export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  constructor(
-    public boardService: BoardService,
-    private _canvasWhiteboardShapeService: CanvasWhiteboardShapeService) {
-  }
-
   @ViewChild('canvasWhiteboard') canvasWhiteboard: CanvasWhiteboardComponent;
   @ViewChild('canvasWrapperDiv') canvasWhiteboardButtons: ElementRef;
 
-  currentBoard: Board = new Board;
+  currentBoard: Board = new Board();
   drawnUpdates = [];
   sendUpdates: CanvasWhiteboardUpdate[] = [];
   databaseEmptied: boolean = false;
@@ -37,12 +33,19 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
     ['Reset Options', this.resetOptionsButton]
   ];
 
+  constructor(
+    public boardService: BoardService,
+    private _canvasWhiteboardShapeService: CanvasWhiteboardShapeService,
+    private roomService: RoomService,) {
+      this.currentBoard.id = this.roomService.roomValue.id;
+  }
+
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
     if (!this.databaseUpdating) {
       this.drawing = true;
-      let board = new Board();
-      board.canvasWhiteboardUpdates = updates;
-      this.boardService.save(board).subscribe(data => {
+      this.currentBoard.canvasWhiteboardUpdates = updates;
+      this.currentBoard.id = this.roomService.roomValue.id;
+      this.boardService.save(this.currentBoard).subscribe(data => {
         var lastUpdate = updates[updates.length - 1];
         if (lastUpdate.type == 2) {
           this.drawing = false;
@@ -57,7 +60,7 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
       this.boardService.delete(this.currentBoard.id).subscribe(data => {
         this.sendUpdates = [];
         this.drawnUpdates = [];
-        this.currentBoard = new Board();
+        this.currentBoard.canvasWhiteboardUpdates = [];
         this.deleting = false;
         console.log("Database was emptied.");
       })

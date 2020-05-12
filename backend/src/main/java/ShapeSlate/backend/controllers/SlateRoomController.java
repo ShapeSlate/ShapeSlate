@@ -15,8 +15,9 @@ public class SlateRoomController {
 
     @PostMapping("/enter")
     public ResponseEntity enter(@RequestBody SlateRoom slateRoom) {
-        if(slateRoomService.findByRoomname(slateRoom.getRoomname()) != null){
-            return new ResponseEntity(slateRoom, HttpStatus.OK);
+        SlateRoom myRoom = slateRoomService.findByRoomname(slateRoom.getRoomname());
+        if (myRoom != null) {
+            return new ResponseEntity(myRoom, HttpStatus.OK);
         }
         else {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
