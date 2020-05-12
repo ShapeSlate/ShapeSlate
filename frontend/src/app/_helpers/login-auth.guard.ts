@@ -14,7 +14,6 @@ export class LoginAuthGuard implements CanActivate {
         const user = this.accountService.userValue;
         if (user) {
             // authorised so return true
-            this.setUserText()
             return true;
         }
         // not logged in so redirect to login page with the return url
@@ -22,8 +21,5 @@ export class LoginAuthGuard implements CanActivate {
         return false;
     }
 
-    setUserText(){
-        document.getElementById("userID").innerHTML = this.accountService.userValue.username;
-        // document.write(this.roomService.roomValue.roomname);
-    }
+
 }
