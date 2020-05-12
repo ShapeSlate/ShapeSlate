@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -44,4 +44,9 @@ export class AccountService {
     register(slateUser: SlateUser) {
         return this.http.post(`${environment.apiUrl}/register`, slateUser);
     }
+
+    // ngOnDestroy(): void {
+    //     this.logout()
+
+    // }
 }
