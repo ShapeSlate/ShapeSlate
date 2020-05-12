@@ -4,8 +4,11 @@ import ShapeSlate.backend.models.User;
 import ShapeSlate.backend.services.UserService;
 import jdk.nashorn.internal.objects.NativeJSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +26,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody User user) {
         User myUser = userService.findByUsername(user.getUsername());
+        System.out.println(BCrypt.checkpw(user.getPassword(), myUser.getPassword()));
         if(myUser != null) {
-            if(myUser.getPassword().equals(user.getPassword())){
-                return new ResponseEntity(user, HttpStatus.OK);
+            if(BCrypt.checkpw(user.getPassword(), myUser.getPassword())){
+                return new ResponseEntity(myUser, HttpStatus.OK);
             }
             else {
                 return new ResponseEntity(HttpStatus.UNAUTHORIZED);
@@ -39,6 +43,7 @@ public class UserController {
     @PostMapping("/register")
     public User register(@RequestBody User user) {
         if (userService.findByUsername(user.getUsername()) == null){
+            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             return userService.save(user);
         } else {
             throw new IllegalArgumentException();

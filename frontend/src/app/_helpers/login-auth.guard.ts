@@ -14,7 +14,7 @@ export class LoginAuthGuard implements CanActivate {
         const user = this.accountService.userValue;
         if (user) {
             // authorised so return true
-            this.setUserText()
+            //this.setUserText()
             return true;
         }
         // not logged in so redirect to login page with the return url
