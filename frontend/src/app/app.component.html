@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <nav class="border-bottom navbar navbar-expand-lg navbar-light bg-light p-0" *ngIf="user">
+  <nav class="border-bottom navbar navbar-expand-lg navbar-light bg-light p-0" *ngIf="slateUser">
     <a class="navbar-brand"><img src="./assets/images/ShapeSlateLogo.png" id="navbar-image"></a>
     <div class="navbar-nav">
       <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
@@ -25,7 +25,7 @@
       <a class="nav-link" id="roomdID"></a>
     </div>
   </nav>
-  <div class="app-container" [ngClass]="{ 'bg-light': user }">
+  <div class="app-container" [ngClass]="{ 'bg-light': slateUser }">
     <alert></alert>
     <router-outlet></router-outlet>
   </div>

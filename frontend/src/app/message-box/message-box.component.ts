@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit } from '@angular/core';
 import EmojiPicker from "vanilla-emoji-picker";
 import * as $ from 'jquery';
 import SockJS from "sockjs-client";
@@ -6,16 +6,17 @@ import Stomp from "stompjs";
 import { Message } from '../_models/message';
 import { AccountService } from '../_services';
 import { strict } from 'assert';
-new EmojiPicker();
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-message-box',
   templateUrl: './message-box.component.html',
   styleUrls: ['./message-box.component.css']
 })
-export class MessageBoxComponent {
+export class MessageBoxComponent implements OnDestroy, AfterViewInit {
 
-  webSocketEndPoint: string = 'http://localhost:8080/ws';
+  emojiPicker = new EmojiPicker();
+  webSocketEndPoint: string = `${environment.apiUrl}/ws`;
   topic: string = "/topic/chatlog";
   stompClient: any;
   message = new Message;
@@ -67,7 +68,7 @@ export class MessageBoxComponent {
     } else{
       $("#chatlog").append("<tr class=\"table-light\"><td>" + "<sub>" + hostAndMessage[0] + ":</sub><br>" + hostAndMessage[1] + "<br><sub>" + new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace(/T/, " ").replace(/\..*/, "") + "</sub>" + "</td></tr>");
     }
-   
+
     document.getElementById("chatlog").scrollIntoView(false);
 
   }
@@ -78,7 +79,6 @@ export class MessageBoxComponent {
     }
     console.log("Disconnected");
   }
-
 
   ngAfterViewInit(): void {
     this.connect();

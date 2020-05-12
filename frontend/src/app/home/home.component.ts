@@ -1,5 +1,5 @@
 
-import { User } from '../_models';
+import { SlateUser } from '../_models';
 import { AccountService } from '../_services';
 import { Component } from '@angular/core';
 
@@ -9,10 +9,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  user: User;
+  slateUser: SlateUser;
 
   constructor(private accountService: AccountService) {
-        this.user = this.accountService.userValue;
+        this.slateUser = this.accountService.slateUserValue;
     }
 
 }

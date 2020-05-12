@@ -11,8 +11,8 @@ export class LoginAuthGuard implements CanActivate {
     ) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const user = this.accountService.userValue;
-        if (user) {
+        const slateUser = this.accountService.slateUserValue;
+        if (slateUser) {
             // authorised so return true
             return true;
         }
@@ -20,6 +20,4 @@ export class LoginAuthGuard implements CanActivate {
         this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url }});
         return false;
     }
-
-
 }

@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 
 import { AccountService, RoomService } from './_services';
-import { User, SlateRoom } from './_models';
+import { SlateUser, SlateRoom } from './_models';
 
 @Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent {
-    user: User;
+    slateUser: SlateUser;
     room: SlateRoom;
 
     constructor(private accountService: AccountService, private roomService: RoomService) {
-        this.accountService.user.subscribe(x => this.user = x);
+        this.accountService.slateUser.subscribe(x => this.slateUser = x);
         this.roomService.room.subscribe(y => this.room = y);
     }
 
     exit() {
         this.roomService.exit();
     }
-    
+
     logout() {
         if (this.roomService.roomValue != null){
             this.roomService.exit();
